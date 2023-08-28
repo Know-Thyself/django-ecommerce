@@ -2,6 +2,10 @@
 	width: 95%;
 	margin: auto;
 }
+
+.col a {
+	text-decoration: none;
+}
 .product__image {
 	height: 250px;
 }
