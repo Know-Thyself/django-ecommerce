@@ -1,4 +1,5 @@
 from django.db import models
+from djmoney.models.fields import MoneyField
 
 
 class Category(models.Model):
@@ -17,7 +18,7 @@ class Product(models.Model):
     brand = models.CharField(max_length=250, default='unbranded')
     description = models.TextField(blank=True)
     slug = models.SlugField(max_length=250, unique=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = MoneyField(max_digits=6, decimal_places=2, default_currency='GBP')
     image = models.ImageField(upload_to='images/')
 
     class Meta:
