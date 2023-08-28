@@ -1,0 +1,7 @@
+.products__wrapper {
+	width: 95%;
+	margin: auto;
+}
+.product__image {
+	height: 250px;
+}

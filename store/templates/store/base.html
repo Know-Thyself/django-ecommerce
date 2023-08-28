@@ -4,6 +4,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 		<!-- Bootswatch -->
 		<link
 			rel="stylesheet"
@@ -51,6 +52,11 @@
 							<li>
 								<a class="dropdown-item" href="{% url 'store' %}"> All </a>
 							</li>
+							{% for category in categories %}
+							<li>
+								<a class="dropdown-item" href="{% url 'store' %}">{{category}}</a>
+							</li>
+							{% endfor %}
 						</ul>
 					</li>
 				</ul>
