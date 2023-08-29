@@ -67,7 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'store.views.category' # category function in views.py
+                'store.views.category_context', # category_context function in views.py
+                'cart.cart.cart_context', # making sure cart sessions persist while browsing the site
             ],
         },
     },

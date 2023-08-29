@@ -10,6 +10,6 @@ urlpatterns = [
     path(
         'search/<slug:category_slug>',
         views.get_products_by_category,
-        name='products-by-category',
+        name='category',
     ),
 ]

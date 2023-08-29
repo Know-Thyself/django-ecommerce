@@ -9,7 +9,7 @@ def store(request):
     return render(request, 'store.html', context)
 
 
-def category(_):
+def category_context(_):
     categories = Category.objects.all()
     return {'categories': categories}
 
@@ -26,4 +26,4 @@ def get_products_by_category(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     products = Product.objects.filter(category=category)
     context = {'category': category, 'products': products}
-    return render(request, 'products-by-category.html', context)
+    return render(request, 'category.html', context)
