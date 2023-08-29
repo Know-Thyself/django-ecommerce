@@ -22,8 +22,8 @@
 		{% for product in products %}
 			<div class="col">
 				<a href="{{ product.get_absolute_url }}">
-					<div class="card h-100">
-						<img src="{{product.image.url}}" class="card-img-top product__image" alt="{{product.title}}" />
+					<div class="card h-100" style="width: 18rem;">
+						<img src="{{product.image.url}}" class="card-img-top product__image" alt="{{product.title}}"/>
 						<div class="card-body">
 							<h5 class="card-title">{{product.title}}</h5>
 							<p class="card-text">{{product.price}}</p>
