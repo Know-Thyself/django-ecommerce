@@ -93,6 +93,16 @@
 							class="btn btn-outline-secondary"
 						>
 							<i class="fa fa-shopping-cart" aria-hidden="true"> </i>
+							&nbsp;
+							<div id="cart-quantity" class="d-inline-flex">
+								{% with total_qty=cart.get_cart_quantity %} 
+									{% if total_qty %} 
+										{{total_qty}} 
+									{% else %} 
+										0 
+									{% endif %} 
+								{% endwith %}
+							</div>
 						</a>
 					</li>
 					&nbsp; &nbsp; &nbsp;
@@ -124,8 +134,9 @@
 						csrfmiddlewaretoken: '{{ csrf_token }}',
 						action: 'post',
 					},
-					success: function (json) {
-						console.log(json)
+					success: function (res) {
+						console.log(res)
+						document.getElementById('cart-quantity').innerText = res.quantity
 					},
 					error: function (xhr, errmsg, err) {},
 				})

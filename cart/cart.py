@@ -14,5 +14,9 @@ class Cart:
             self.cart[product_id] = {'price': str(product.price), 'quantity': quantity}
         self.session.modified = True
 
+    def get_cart_quantity(self):
+        return sum(item['quantity'] for item in self.cart.values())
+
+
 def cart_context(request):
     return {'cart': Cart(request)}
