@@ -6,6 +6,13 @@ class Cart:
             cart = self.session['SESSION_KEY'] = {}
         self.cart = cart
 
+    def add_to_cart(self, product, quantity):
+        product_id = str(product.id)
+        if product_id in self.cart:
+            self.cart[product_id]['quantity'] = quantity
+        else:
+            self.cart[product_id] = {'price': str(product.price), 'quantity': quantity}
+        self.session.modified = True
 
 def cart_context(request):
     return {'cart': Cart(request)}
