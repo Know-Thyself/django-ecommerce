@@ -34,6 +34,7 @@ class Cart:
             item['total'] = f"£{str(item['price'] * item['quantity'])}"
             yield item
 
-
+    def get_total_price(self):
+        return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
 def cart_context(request):
     return {'cart': Cart(request)}
