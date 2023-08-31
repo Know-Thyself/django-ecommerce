@@ -12,9 +12,9 @@ def cart_summary(request):
 
 def add_to_cart(request):
     cart = Cart(request)
-    if request.POST.get('action') == 'post':
-        product_id = int(request.POST.get('productId'))
-        product_quantity = int(request.POST.get('quantity'))
+    if request.GET.get('action') == 'post':
+        product_id = int(request.GET.get('productId'))
+        product_quantity = int(request.GET.get('quantity'))
         product = get_object_or_404(Product, id=product_id)
         cart.add_to_cart(product=product, quantity=product_quantity)
         cart_quantity = cart.get_cart_quantity()

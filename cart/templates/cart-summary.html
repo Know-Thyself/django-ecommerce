@@ -65,10 +65,9 @@
 										</button>
 										&nbsp;
 										<button
-											type="button"
-											id="delete-button"
 											data-index="{{ product.id }}"
 											class="btn btn-danger btn-sm delete-button"
+											onClick="removeItem('{{product.id}}')"
 										>
 											Remove From Cart
 										</button>

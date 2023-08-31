@@ -117,50 +117,6 @@
 			integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 			crossorigin="anonymous"
 		></script>
-		<script>
-			// Add to cart
-			$(document).on('click', '#add-to-cart-btn', function (e) {
-				e.preventDefault()
-				$.ajax({
-					type: 'POST',
-					url: '{% url "add-to-cart" %}',
-					data: {
-						productId: $('#add-to-cart-btn').val(),
-						quantity: $('#select option:selected').text(),
-						csrfmiddlewaretoken: '{{ csrf_token }}',
-						action: 'post',
-					},
-					success: function (res) {
-						document.getElementById('cart-quantity').innerText = res.quantity
-					},
-					error: function (xhr, errmsg, err) {
-						console.log(err)
-					},
-				})
-			})
-
-			// Delete - remove from shopping cart
-			$(document).on('click', '#delete-button', function (e) {
-				e.preventDefault()
-				$.ajax({
-					url: '{% url "remove-from-cart" %}',
-					data: {
-						action: 'delete',
-						csrfmiddlewaretoken: '{{ csrf_token }}',
-						productId: $(this).data('index'),
-					},
-					success: res => {
-						document.getElementById(res.id).innerText = ''
-						document.getElementById('cart-quantity').innerText = res.quantity
-						document.getElementById(
-							'total'
-						).innerText = `Total price: £${res.total}`
-					},
-					error: error => {
-						console.log(error)
-					},
-				})
-			})
-		</script>
+		<script src="{% static 'js/index.js' %}"></script>
 	</body>
 </html>
