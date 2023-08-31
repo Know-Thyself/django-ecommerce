@@ -45,12 +45,21 @@ class Cart:
                 Decimal(item['price']) * item['quantity'] for item in self.cart.values()
             )
 
+    def get_sub_total(self, id):
+        return Decimal(self.cart[str(id)]['price'][1:]) * self.cart[str(id)]['quantity']
+
     def remove_from_cart(self, product):
-        print(type(product))
         product_id = str(product)
 
         if product_id in self.cart:
             del self.cart[product_id]
+
+        self.session.modified = True
+
+    def update_cart(self, id, quantity):
+        product_id = str(id)
+        if product_id in self.cart:
+            self.cart[product_id]['quantity'] = quantity
 
         self.session.modified = True
 
