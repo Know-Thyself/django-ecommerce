@@ -22,9 +22,18 @@ def add_to_cart(request):
         return response
 
 
-def update_cart(request):
-    pass
-
-
 def remove_from_cart(request):
+    cart = Cart(request)
+    if request.GET.get('action') == 'delete':
+        product_id = int(request.GET.get('productId'))
+        cart.remove_from_cart(product=product_id)
+        cart_quantity = cart.get_cart_quantity()
+        cart_total = cart.get_total_price()
+        response = JsonResponse(
+            {'id': product_id, 'quantity': cart_quantity, 'total': cart_total}
+        )
+        return response
+
+
+def update_cart(request):
     pass

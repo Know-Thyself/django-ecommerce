@@ -95,13 +95,8 @@
 							<i class="fa fa-shopping-cart" aria-hidden="true"> </i>
 							&nbsp;
 							<div id="cart-quantity" class="d-inline-flex">
-								{% with total_qty=cart.get_cart_quantity %} 
-									{% if total_qty %} 
-										{{total_qty}} 
-									{% else %} 
-										0 
-									{% endif %} 
-								{% endwith %}
+								{% with total_qty=cart.get_cart_quantity %} {% if total_qty %}
+								{{total_qty}} {% else %} 0 {% endif %} {% endwith %}
 							</div>
 						</a>
 					</li>
@@ -123,6 +118,7 @@
 			crossorigin="anonymous"
 		></script>
 		<script>
+			// Add to cart
 			$(document).on('click', '#add-to-cart-btn', function (e) {
 				e.preventDefault()
 				$.ajax({
@@ -137,7 +133,32 @@
 					success: function (res) {
 						document.getElementById('cart-quantity').innerText = res.quantity
 					},
-					error: function (xhr, errmsg, err) {},
+					error: function (xhr, errmsg, err) {
+						console.log(err)
+					},
+				})
+			})
+
+			// Delete - remove from shopping cart
+			$(document).on('click', '#delete-button', function (e) {
+				e.preventDefault()
+				$.ajax({
+					url: '{% url "remove-from-cart" %}',
+					data: {
+						action: 'delete',
+						csrfmiddlewaretoken: '{{ csrf_token }}',
+						productId: $(this).data('index'),
+					},
+					success: res => {
+						document.getElementById(res.id).innerText = ''
+						document.getElementById('cart-quantity').innerText = res.quantity
+						document.getElementById(
+							'total'
+						).innerText = `Total price: £${res.total}`
+					},
+					error: error => {
+						console.log(error)
+					},
 				})
 			})
 		</script>

@@ -22,7 +22,7 @@ class Cart:
         return sum(item['quantity'] for item in self.cart.values())
 
     def __iter__(self):
-        product_ids = self.cart.keys() # Ids of products added to cart
+        product_ids = self.cart.keys()  # Ids of products added to cart
         products = Product.objects.filter(id__in=product_ids)
         cart = self.cart.copy()
 
@@ -35,6 +35,25 @@ class Cart:
             yield item
 
     def get_total_price(self):
-        return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+        try:
+            return sum(
+                Decimal(item['price'][1:]) * item['quantity']
+                for item in self.cart.values()
+            )
+        except TypeError:
+            return sum(
+                Decimal(item['price']) * item['quantity'] for item in self.cart.values()
+            )
+
+    def remove_from_cart(self, product):
+        print(type(product))
+        product_id = str(product)
+
+        if product_id in self.cart:
+            del self.cart[product_id]
+
+        self.session.modified = True
+
+
 def cart_context(request):
     return {'cart': Cart(request)}
