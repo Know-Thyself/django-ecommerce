@@ -3,7 +3,6 @@ from .cart import Cart
 from store.models import Product
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-from decimal import Decimal
 
 
 def cart_summary(request):
@@ -30,9 +29,7 @@ def remove_from_cart(request):
         cart.remove_from_cart(product=product_id)
         cart_quantity = cart.get_cart_quantity()
         cart_total = cart.get_total_price()
-        response = JsonResponse(
-            {'id': product_id, 'quantity': cart_quantity, 'total': cart_total}
-        )
+        response = JsonResponse({'quantity': cart_quantity, 'total': cart_total})
         return response
 
 

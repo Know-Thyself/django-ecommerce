@@ -44,7 +44,7 @@ const removeItem = id => {
 			productId: id,
 		},
 		success: res => {
-			document.getElementById(res.id).innerText = ''
+			document.getElementById(id).innerText = ''
 			document.getElementById('cart-quantity').innerText = res.quantity
 			document.getElementById('total').innerText = `Total price: £${res.total}`
 		},
