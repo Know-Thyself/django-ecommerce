@@ -19,16 +19,17 @@ def register(request):
             # Email verification
             current_site = get_current_site(request)
             subject = 'Account Verification Email'
-            message = render_to_string('registration/email-verification.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': user_tokenizer_generate.make_token(user),
-            })
-            user.email_user(subject, message)
-            return redirect(
-                'email-verification-sent'
+            message = render_to_string(
+                'verification/email-verification.html',
+                {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': user_tokenizer_generate.make_token(user),
+                },
             )
+            user.email_user(subject, message)
+            return redirect('email-verification-sent')
 
     return render(request, 'registration/register.html', {'form': form})
 
@@ -45,13 +46,18 @@ def email_verification(request, uidb64, token):
     return redirect('email-verification-failed')
 
 
+def email_verification_sent(request):
+    return render(request, 'verification/email-verification-sent.html')
+
+
 def email_verification_failed(request):
-    pass
+    return render(request, 'verification/email-verification-failed.html')
 
 
 def email_verification_success(request):
-    pass
+    return render(request, 'verification/email-verification-success.html')
 
 
-def email_verification_sent(request):
-    pass
+def user_login(request):
+    context = {}
+    return render(request, 'account/user-login.html')

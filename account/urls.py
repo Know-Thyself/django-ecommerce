@@ -23,4 +23,5 @@ urlpatterns = [
         views.email_verification_success,
         name='email-verification-success',
     ),
+    path('user-login/', views.user_login, name='user-login'),
 ]
