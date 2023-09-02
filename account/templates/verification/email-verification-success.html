@@ -1,9 +1,15 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <main class="verification">
-    <section class="email-verified">
-        <h1>Your account is now verified!</h1>
-        <a href="{% url 'user-login' %}"><h4>Click this link to login</h4></a>
-    </section>
+	<section class="card email-sent-card">
+        <div class="card-header">
+            <i class="fa fa-check fa-3x text-success"></i>
+            <br>
+            <h5><strong>Your account is now verified!</strong></h5>
+        </div>
+		<div class="card-body">
+			<h5 class="card-title">Please proceed to login page clicking the link below.</h5>
+			<a href="{% url 'user-login' %}" class="btn btn-primary">Login to your account</a>
+		</div>
+	</section>
 </main>
 {% endblock %}

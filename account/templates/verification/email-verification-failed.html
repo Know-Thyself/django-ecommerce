@@ -1,13 +1,17 @@
 {% extends "base.html" %} {% block content %}
 <main class="verification">
-	<section class="verification-failed">
-		<h1>Your account is not verified!</h1>
-		<a href="{% url 'register' %}"
-			><h4>
-				Please head over the registratin page using this link to create your
-				account with the correct credentials.
-			</h4></a
-		>
+	<section class="card email-sent-card">
+		<div class="card-header">
+			<i class="fa fa-times fa-3x text-danger"></i>
+			<br />
+			<h5><strong>Your account is not verified!</strong></h5>
+		</div>
+		<div class="card-body">
+			<h5 class="card-title">
+				Please try to register again with your correct credentials.
+			</h5>
+			<a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+		</div>
 	</section>
 </main>
 {% endblock %}
