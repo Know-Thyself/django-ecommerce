@@ -5,6 +5,7 @@ from .token import user_tokenizer_generate
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.auth.models import User
 
 
 def register(request):
@@ -32,8 +33,16 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
-def email_verification(request):
-    pass
+def email_verification(request, uidb64, token):
+    uid = force_str(urlsafe_base64_decode(uidb64))
+    user = User.objects.get(pk=uid)
+
+    if user and user_tokenizer_generate.check_token(user, token):
+        user.is_active = True
+        user.save
+        return redirect('email-verification-success')
+
+    return redirect('email-verification-failed')
 
 
 def email_verification_failed(request):
