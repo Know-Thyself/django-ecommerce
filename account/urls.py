@@ -26,4 +26,6 @@ urlpatterns = [
     path('user-login/', views.user_login, name='user-login'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('user-logout/', views.user_logout, name='user-logout'),
+    path('manage-profile/', views.manage_profile, name='manage-profile'),
+    path('delete-account/', views.delete_account, name='delete-account'),
 ]

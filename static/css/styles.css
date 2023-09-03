@@ -4,6 +4,10 @@ body {
 	box-sizing: border-box;
 }
 
+.btn {
+	border-radius: 4px !important;
+}
+
 .products__wrapper {
 	width: 95%;
 	margin: auto;
@@ -18,21 +22,18 @@ body {
 }
 
 .form-main {
-	background-color: lightslategray;
-	height: 100vh;
-	padding-top: 2rem;
+	padding: 8rem 0;
 }
 
 .form-wrapper {
 	width: 700px;
 	margin: auto;
 	padding: 1rem 3rem;
-	background-color: aliceblue;
 	border-radius: 4px;
+	background-color: #F5F5F5;
 }
 
 .verification {
-	background-color: lightslategray;
 	height: 100vh;
 	padding-top: 2rem;
 }

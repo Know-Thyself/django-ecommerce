@@ -1,9 +1,22 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <main class="dash-board-main">
-    <section class="dash-board-wrapper"> 
-        <h3 class="py-4 text-center">Welcome {{username}}!</h3>
-        <h5 class="text-center">This is your dashboard.</h5>
-    </section>
+	<section class="dash-board-wrapper">
+		<h3 class="py-4 text-center">Welcome {{username}}!</h3>
+		<h5 class="text-center">This is your dashboard.</h5>
+		<br />
+		<div class="info px-5">
+			<h6>View your orders:</h6>
+			<h6>Manage your orders:</h6>
+			<div class="d-flex flex-column">
+				<a class="text-decoration-none" href="{% url 'user-logout' %}"
+					>Save your changes and Logout</a
+				>
+                <div>
+                    <a href="{% url 'manage-profile' %}" class="btn btn-primary my-2">Manage Your Profile</a>
+                    <a href="{% url 'delete-account' %}" class="btn btn-danger my-2">Delete Your Account</a>
+                </div>
+			</div>
+		</div>
+	</section>
 </main>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %} 
 {% load crispy_forms_tags %}
 {% block content %}
-<main class="form-main">
+<main class="form-main py-lg-4">
     <section class="form-wrapper"> 
         <h3 class="py-4">Registration Form</h3>
         <!-- {% crispy form %} -->
@@ -11,7 +11,7 @@
             {{ form.email|as_crispy_field }} 
             {{ form.password1|as_crispy_field }} 
             {{ form.password2|as_crispy_field }} 
-            <button type="submit" class="btn btn-primary btn-lg w-100">Create Account</button>
+            <button type="submit" class="btn btn-primary w-100">Create Account</button>
         </form>
     </section>
 </main>

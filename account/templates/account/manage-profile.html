@@ -1,0 +1,15 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+{% block content %}
+<main class="form-main py-lg-4">
+    <section class="form-wrapper"> 
+        <h3 class="py-4">Update Your Profile</h3>
+        <form method="POST" class="blueForms" autocomplete="off" autocapitalize="off">
+            {% csrf_token %}
+            {{ user.username|as_crispy_field }} 
+            {{ user.email|as_crispy_field }}
+            <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+        </form>
+    </section>
+</main>
+{% endblock %}
