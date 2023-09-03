@@ -19,13 +19,16 @@ body {
 
 .form-main {
 	background-color: lightslategray;
+	height: 100vh;
+	padding-top: 2rem;
 }
 
 .form-wrapper {
 	width: 700px;
 	margin: auto;
-	padding: 0 3rem 2rem 4rem;
+	padding: 1rem 3rem;
 	background-color: aliceblue;
+	border-radius: 4px;
 }
 
 .verification {

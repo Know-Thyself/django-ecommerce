@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.sites.shortcuts import get_current_site
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, LoginForm
 from .token import user_tokenizer_generate
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import auth
 
 
 def register(request):
@@ -40,7 +42,7 @@ def email_verification(request, uidb64, token):
 
     if user and user_tokenizer_generate.check_token(user, token):
         user.is_active = True
-        user.save
+        user.save()
         return redirect('email-verification-success')
 
     return redirect('email-verification-failed')
@@ -59,5 +61,21 @@ def email_verification_success(request):
 
 
 def user_login(request):
-    context = {}
-    return render(request, 'account/user-login.html')
+    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request, data=request.POST)
+        print(form.is_valid(), 'is_valid')
+        if form.is_valid():
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            print(user, '<-----user')
+            if user is not None:
+                auth.login(request=request, user=user)
+                return redirect('dashboard')
+    context = {'form': form}
+    return render(request, 'account/user-login.html', context)
+
+
+def dashboard(request):
+    return render(request, 'account/dashboard.html' )

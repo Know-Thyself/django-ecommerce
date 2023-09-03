@@ -1,8 +1,8 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from django.forms.widgets import PasswordInput, TextInput
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -15,10 +15,6 @@ class UserRegistrationForm(UserCreationForm):
         super(UserCreationForm, self).__init__(*args, **kwargs)
         self.fields['email'].required = True
         self.helper = FormHelper()
-        self.helper.form_id = 'registration-form'
-        self.helper.form_class = 'blueForms'
-        self.helper.form_method = 'post'
-        self.helper.form_action = 'store'
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -32,3 +28,7 @@ class UserRegistrationForm(UserCreationForm):
             raise forms.ValidationError('Invalid email!')
 
         return email
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=TextInput())
+    password = forms.CharField(widget=PasswordInput())

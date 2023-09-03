@@ -24,4 +24,5 @@ urlpatterns = [
         name='email-verification-success',
     ),
     path('user-login/', views.user_login, name='user-login'),
+    path('dashboard/', views.dashboard, name='dashboard'),
 ]
