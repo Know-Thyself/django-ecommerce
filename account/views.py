@@ -75,12 +75,12 @@ def user_login(request):
     return render(request, 'account/user-login.html', context)
 
 
-def user_logout(request):
-    logout(request)
-
-
 def dashboard(request):
     username = request.session.get('username')
-    print(username)
     context = {'username': username}
     return render(request, 'account/dashboard.html', context)
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('store')

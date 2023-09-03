@@ -68,7 +68,7 @@
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
 						<a
-							class="btn btn-alert navbar-btn text-white"
+							class="btn btn-alert navbar-btn text-white font-weight-bold"
 							type="button"
 							href="{% url 'register' %}"
 						>
@@ -76,13 +76,21 @@
 						</a>
 					</li>
 					<li class="nav-item">
+					{% if request.user.is_authenticated %}
 						<a
-							class="btn btn-alert navbar-btn text-white"
+							class="btn btn-alert navbar-btn text-white font-weight-bold"
+							type="button"
+							href="{% url 'user-logout' %}"
+							>Logout</a
+						>
+					{% else %}
+						<a
+							class="btn btn-alert navbar-btn text-white font-weight-bold"
 							type="button"
 							href="{% url 'user-login' %}"
+							>Login</a
 						>
-							Login
-						</a>
+					{% endif %}
 					</li>
 					&nbsp; &nbsp; &nbsp;
 					<li class="nav-item">
