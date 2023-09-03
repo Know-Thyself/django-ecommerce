@@ -7,7 +7,6 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import auth
 
 
 def register(request):
@@ -64,18 +63,24 @@ def user_login(request):
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
-        print(form.is_valid(), 'is_valid')
         if form.is_valid():
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
-            print(user, '<-----user')
             if user is not None:
-                auth.login(request=request, user=user)
+                login(request=request, user=user)
+                request.session['username'] = username
                 return redirect('dashboard')
     context = {'form': form}
     return render(request, 'account/user-login.html', context)
 
 
+def user_logout(request):
+    logout(request)
+
+
 def dashboard(request):
-    return render(request, 'account/dashboard.html' )
+    username = request.session.get('username')
+    print(username)
+    context = {'username': username}
+    return render(request, 'account/dashboard.html', context)

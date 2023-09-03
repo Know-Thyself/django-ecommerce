@@ -32,3 +32,6 @@ class UserRegistrationForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput())
     password = forms.CharField(widget=PasswordInput())
+
+    def __str__(self):
+        return self.username
