@@ -105,4 +105,10 @@ def manage_profile(request):
 
 @login_required(login_url='user-login')
 def delete_account(request):
-    pass
+    user = User.objects.get(id=request.user.id)
+
+    if request.method == 'POST':
+        user.delete()
+        return redirect('store')
+
+    return render(request, 'account/delete-account.html')

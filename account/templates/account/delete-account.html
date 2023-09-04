@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+<div class="card custom-card">
+  <div class="card-header text-danger fs-3 fw-bold">
+    Warning!
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Are you sure you want to delete your account ?</h5>
+    <form method="POST" autocomplete="off" autocapitalize="off">
+        {% csrf_token %}
+        <a type="button" href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+        <button type="submit" class="btn btn-danger">Delete Account</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

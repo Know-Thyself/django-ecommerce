@@ -69,24 +69,24 @@
 					{% if request.user.is_authenticated %}
 					<li class="nav-item">
 						<a
-							class="btn btn-alert navbar-btn text-white font-weight-bold"
-							type="button"
-							href="{% url 'user-logout' %}"
-							>Logout</a
-						>
-					</li>
-					<li class="nav-item">
-						<a
-							class="btn btn-alert navbar-btn text-white font-weight-bold"
+							class="btn btn-alert navbar-btn text-white"
 							type="button"
 							href="{% url 'dashboard' %}"
 							>Dashboard</a
 						>
 					</li>
+					<li class="nav-item">
+						<a
+							class="btn btn-alert navbar-btn text-white"
+							type="button"
+							href="{% url 'user-logout' %}"
+							>Logout</a
+						>
+					</li>
 					{% else %}
 					<li class="nav-item">
 						<a
-							class="btn btn-alert navbar-btn text-white font-weight-bold"
+							class="btn btn-alert navbar-btn text-white"
 							type="button"
 							href="{% url 'register' %}"
 						>
@@ -95,7 +95,7 @@
 					</li>
 					<li class="nav-item">
 						<a
-							class="btn btn-alert navbar-btn text-white font-weight-bold"
+							class="btn btn-alert navbar-btn text-white"
 							type="button"
 							href="{% url 'user-login' %}"
 							>Login</a
@@ -111,13 +111,12 @@
 						>
 							<i class="fa fa-shopping-cart" aria-hidden="true"> </i>
 							&nbsp;
-							<div id="cart-quantity" class="d-inline-flex">
+							<span id="cart-quantity" class="d-inline-flex">
 								{% with total_qty=cart.get_cart_quantity %} {% if total_qty %}
 								{{total_qty}} {% else %} 0 {% endif %} {% endwith %}
-							</div>
+							</span>
 						</a>
 					</li>
-					&nbsp; &nbsp; &nbsp;
 				</ul>
 			</div>
 		</nav>

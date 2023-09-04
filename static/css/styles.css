@@ -30,7 +30,7 @@ body {
 	margin: auto;
 	padding: 1rem 3rem;
 	border-radius: 4px;
-	background-color: #F5F5F5;
+	background-color:  #D1CBC1;
 }
 
 .verification {
@@ -40,6 +40,11 @@ body {
 
 .card-header {
 	text-align: center;
+}
+
+.custom-card {
+	width: 700px;
+	margin: auto;
 }
 
 .email-sent-card {
