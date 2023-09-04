@@ -5,7 +5,6 @@ from django.forms.widgets import PasswordInput, TextInput
 
 
 class UserRegistrationForm(UserCreationForm):
-
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
@@ -27,6 +26,7 @@ class UserRegistrationForm(UserCreationForm):
 
         return email
 
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput())
     password = forms.CharField(widget=PasswordInput())
@@ -34,6 +34,7 @@ class LoginForm(AuthenticationForm):
 
 class UpdateUserForm(forms.ModelForm):
     password = None
+
     class Meta:
         model = User
         fields = ['username', 'email']
@@ -42,3 +43,14 @@ class UpdateUserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UpdateUserForm, self).__init__(*args, **kwargs)
         self.fields['email'].required = True
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('The provided email exists in our database.')
+
+        if len(email) >= 150:
+            raise forms.ValidationError('Invalid email!')
+
+        return email
