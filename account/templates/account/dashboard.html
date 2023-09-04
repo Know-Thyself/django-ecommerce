@@ -4,17 +4,51 @@
 		<h3 class="py-4 text-center">Welcome {{username}}!</h3>
 		<h5 class="text-center">This is your dashboard.</h5>
 		<br />
-		<div class="info px-5">
-			<h6>View your orders:</h6>
-			<h6>Manage your orders:</h6>
-			<div class="d-flex flex-column">
-				<a class="text-decoration-none" href="{% url 'user-logout' %}"
-					>Save your changes and Logout</a
-				>
-                <div>
-                    <a href="{% url 'manage-profile' %}" class="btn btn-primary my-2">Manage Your Profile</a>
-                    <a href="{% url 'delete-account' %}" class="btn btn-danger my-2">Delete Your Account</a>
-                </div>
+		<div class="info px-5 d-flex card-group gap-2">
+			<div class="card border-light bg-dark text-white rounded">
+				<div class="card-header fs-4 fw-bold">
+					Orders &nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"> </i>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">View and manage your orders</h5>
+					<p class="card-text">Managing your orders is easy.</p>
+					<a href="{% url 'manage-profile' %}" class="btn btn-primary my-2"
+						><i class="fa fa-shopping-cart" aria-hidden="true"> </i>&nbsp;Manage
+						Your Orders</a
+					>
+				</div>
+			</div>
+			<div class="card border-light bg-dark text-white rounded">
+				<div class="card-header fs-4 fw-bold">
+					Update Your Profile &nbsp;<i
+						class="fa fa-address-card"
+						aria-hidden="true"
+					></i>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">Review and update your profile</h5>
+					<p class="card-text">Updating your profile is easy.</p>
+					<a href="{% url 'manage-profile' %}" class="btn btn-primary my-2"
+						><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;Manage
+						Your Profile</a
+					>
+				</div>
+			</div>
+			<div class="card border-light bg-dark text-white rounded">
+				<div class="card-header fs-4 fw-bold">
+					Delete Your Account &nbsp;<i
+						class="fa fa-trash"
+						aria-hidden="true"
+					></i>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">No longer need an account ?</h5>
+					<p class="card-text">Deleting your account is irreversible.</p>
+					<a href="{% url 'delete-account' %}" class="btn btn-danger my-2"
+						><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Delete Your
+						Account</a
+					>
+				</div>
 			</div>
 		</div>
 	</section>
