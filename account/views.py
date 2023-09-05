@@ -22,7 +22,7 @@ def register(request):
             current_site = get_current_site(request)
             subject = 'Account Verification Email'
             message = render_to_string(
-                'verification/email-verification.html',
+                'verification/email/email-verification.html',
                 {
                     'user': user,
                     'domain': current_site.domain,
@@ -49,15 +49,15 @@ def email_verification(request, uidb64, token):
 
 
 def email_verification_sent(request):
-    return render(request, 'verification/email-verification-sent.html')
+    return render(request, 'verification/email/email-verification-sent.html')
 
 
 def email_verification_failed(request):
-    return render(request, 'verification/email-verification-failed.html')
+    return render(request, 'verification/email/email-verification-failed.html')
 
 
 def email_verification_success(request):
-    return render(request, 'verification/email-verification-success.html')
+    return render(request, 'verification/email/email-verification-success.html')
 
 
 def user_login(request):

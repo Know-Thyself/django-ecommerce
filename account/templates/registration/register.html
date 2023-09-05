@@ -1,18 +1,29 @@
-{% extends "base.html" %} 
-{% load crispy_forms_tags %}
-{% block content %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
 <main class="form-main py-lg-4">
-    <section class="form-wrapper"> 
-        <h3 class="py-4">Registration Form</h3>
-        <!-- {% crispy form %} -->
-        <form method="post" id="registration-form" class="blueForms" autocomplete="off" autocapitalize="off">
-            {% csrf_token %}
+	<section class="form-wrapper">
+		<h3 class="py-4">Registration Form</h3>
+		<!-- {% crispy form %} -->
+		<form
+			method="post"
+			id="registration-form"
+			class="blueForms"
+			autocomplete="off"
+			autocapitalize="off"
+		>
+			{% csrf_token %} 
             {{ form.username|as_crispy_field }} 
             {{ form.email|as_crispy_field }} 
             {{ form.password1|as_crispy_field }} 
-            {{ form.password2|as_crispy_field }} 
-            <button type="submit" class="btn btn-primary w-100">Create Account</button>
-        </form>
-    </section>
+            {{form.password2|as_crispy_field }}
+			<button type="submit" class="btn btn-primary w-100">
+				Create Account
+			</button>
+			<div class="py-4">
+				Already have an account ?&nbsp;<a href="{% url 'user-login' %}"
+					class="text-primary">Login instead</a
+				>
+			</div>
+		</form>
+	</section>
 </main>
 {% endblock %}

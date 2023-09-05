@@ -21,11 +21,11 @@ body {
 	height: 18rem;
 }
 
-.form-main {
+.form-main, .main {
 	padding: 8rem 0;
 }
 
-.form-wrapper {
+.form-wrapper, .wrapper {
 	width: 700px;
 	margin: auto;
 	padding: 1rem 3rem;
@@ -48,7 +48,8 @@ body {
 	margin: auto;
 }
 
-.email-sent-card {
+/* .card {
 	width: 600px;
 	margin: auto;
-}
+	background-color:   #ACA79E;
+} */
