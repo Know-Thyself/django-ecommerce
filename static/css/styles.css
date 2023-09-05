@@ -43,13 +43,9 @@ body {
 	text-align: center;
 }
 
-.custom-card {
+.custom-card, .password-reset {
 	width: 700px;
 	margin: auto;
+	background-color: #ACA79E;
 }
 
-/* .card {
-	width: 600px;
-	margin: auto;
-	background-color:   #ACA79E;
-} */
