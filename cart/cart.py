@@ -1,13 +1,17 @@
 from decimal import Decimal
 from store.models import Product
+from dotenv import load_dotenv
+from os import environ
+load_dotenv()
 
 
 class Cart:
     def __init__(self, request):
         self.session = request.session
-        cart = self.session.get('SESSION_KEY')
-        if 'SESSION_KEY' not in self.session:
-            cart = self.session['SESSION_KEY'] = {}
+        SESSION_KEY = environ.get('CART_SESSION_KEY')
+        cart = self.session.get(SESSION_KEY)
+        if SESSION_KEY not in self.session:
+            cart = self.session[SESSION_KEY] = {}
         self.cart = cart
 
     def add_to_cart(self, product, quantity):

@@ -8,6 +8,9 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from os import environ
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def register(request):
@@ -83,8 +86,14 @@ def dashboard(request):
     return render(request, 'account/dashboard.html', context)
 
 
+@login_required(login_url='user-login')
 def user_logout(request):
-    logout(request)
+    # logout(request)
+    try:
+        for key in list(request.session.keys()):
+            if key == environ.get('CART_SESSION_KEY'): continue
+            else: del request.session[key]
+    except KeyError: pass
     return redirect('store')
 
 
