@@ -4,8 +4,9 @@
 <main class="form-main py-lg-4">
     <section class="form-wrapper"> 
         <h3 class="py-4">Update Your Profile</h3>
-        <form method="POST" class="blueForms" autocomplete="off" autocapitalize="off">
+        <form method="POST" class="blueForms" autocomplete="off" autocapitalize="off" novalidate>
             {% csrf_token %}
+            {{ form|as_crispy_errors }}
             {{ user.username|as_crispy_field }} 
             {{ user.email|as_crispy_field }}
             <button type="submit" class="btn btn-primary w-100">Update Profile</button>

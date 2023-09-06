@@ -2,10 +2,12 @@
 <main class="form-main">
 	<section class="form-wrapper">
 		<h3 class="py-4 text-center">Login to your account</h3>
-		<form method="POST" autocomplete="off" autocapitalize="off">
+		<form method="POST" autocomplete="off" autocapitalize="off" novalidate>
 			{% csrf_token %} 
-            {{ form.username|as_crispy_field }} 
+            {{ form|as_crispy_errors }}
+            {{ form.username|as_crispy_field }}
             {{ form.password|as_crispy_field }}
+            <!-- {{ form.non_field_errors }} -->
 			<button type="submit" class="btn btn-primary w-100 fs-5">
 				Login&nbsp;&nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i>
 			</button>

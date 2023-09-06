@@ -24,6 +24,9 @@ class UserRegistrationForm(UserCreationForm):
         if len(email) >= 150:
             raise forms.ValidationError('Invalid email!')
 
+        if len(email) == 0:
+            raise forms.ValidationError('Email is required!')
+
         return email
 
 
@@ -52,5 +55,6 @@ class UpdateUserForm(forms.ModelForm):
 
         if len(email) >= 150:
             raise forms.ValidationError('Invalid email!')
+
 
         return email
