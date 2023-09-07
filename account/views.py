@@ -154,6 +154,8 @@ def shipping(request):
             shipping_address.save()
 
             return redirect('dashboard')
-
-    context = {'form': form}
-    return render(request, 'account/shipping.html', context)
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.user.id)
+        print(user.email)
+        context = {'form': form, 'user': user}
+        return render(request, 'account/shipping.html', context=context)

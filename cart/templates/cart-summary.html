@@ -82,7 +82,8 @@
 		{% endfor %}
 		<div class="col-12 text-end">
 			<div class="h6 fw-bold pb-5">
-				<div id="total" class="d-inline-flex">Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}</div>
+				<div id="total" class="pb-4">Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}</div>
+				<a type="button" class="btn btn-primary text-right" href="{% url 'checkout' %}">Proceed to Checkout &nbsp; <i class="fa fa-credit-card-alt" aria-hidden="true"></i></a>
 			</div>
 		</div>
 	</div>
