@@ -21,17 +21,20 @@ body {
 	height: 18rem;
 }
 
-.form-main, .main {
+.form-main,
+.main {
 	padding: 2rem 0;
 }
 
-.form-wrapper, .wrapper {
+.form-wrapper,
+.wrapper {
 	width: 700px;
 	margin: auto;
 	padding: 1rem 3rem;
 	border-radius: 4px;
-	background-color:  #D1CBC1;
-	background-color:   #ACA79E;
+	background-color: #d1cbc1;
+	background-color: #dcdcdc;
+	background-color: #DADADA;
 }
 
 .verification {
@@ -43,9 +46,9 @@ body {
 	text-align: center;
 }
 
-.custom-card, .password-reset {
+.custom-card,
+.password-reset {
 	width: 700px;
 	margin: auto;
-	background-color: #ACA79E;
+	background-color: #aca79e;
 }
-

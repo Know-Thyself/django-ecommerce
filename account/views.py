@@ -1,16 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib.sites.shortcuts import get_current_site
 from .forms import UserRegistrationForm, LoginForm, UpdateUserForm
+from payment.forms import ShippingForm
+from payment.models import ShippingAddressModel
 from .token import user_tokenizer_generate
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from os import environ
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
@@ -75,7 +78,9 @@ def user_login(request):
             if user is not None:
                 login(request=request, user=user)
                 request.session['username'] = username
-                messages.success(request, f'Welcome {username}! You have successfully logged in!')
+                messages.success(
+                    request, f'Welcome {username}! You have successfully logged in!'
+                )
                 return redirect('dashboard')
     context = {'form': form}
     return render(request, 'account/user-login.html', context)
@@ -93,9 +98,12 @@ def user_logout(request):
     # logout(request)
     try:
         for key in list(request.session.keys()):
-            if key == environ.get('CART_SESSION_KEY'): continue
-            else: del request.session[key]
-    except KeyError: pass
+            if key == environ.get('CART_SESSION_KEY'):
+                continue
+            else:
+                del request.session[key]
+    except KeyError:
+        pass
     return redirect('store')
 
 
@@ -125,3 +133,27 @@ def delete_account(request):
         return redirect('store')
 
     return render(request, 'account/delete-account.html')
+
+
+@login_required(login_url='user-login')
+def shipping(request):
+    try:
+        shipping = ShippingAddressModel.objects.get(user=request.user.id)
+    except ShippingAddressModel.DoesNotExist:
+        shipping = None
+
+    form = ShippingForm(instance=shipping)
+
+    if request.method == 'POST':
+        form = ShippingForm(request.POST, instance=shipping)
+        if form.is_valid():
+            # Assign the user fk on the object
+            shipping_address = form.save(commit=False)
+            # Adding the fk
+            shipping_address.user = request.user
+            shipping_address.save()
+
+            return redirect('dashboard')
+
+    context = {'form': form}
+    return render(request, 'account/shipping.html', context)

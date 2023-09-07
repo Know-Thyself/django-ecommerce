@@ -1,0 +1,23 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+{% block content %}
+<main class="form-main">
+	<section class="form-wrapper">
+		<h3 class="py-4 text-center">Shipping Address</h3>
+		<form method="POST" autocomplete="off" autocapitalize="off" novalidate>
+			{% csrf_token %} 
+            {{ form|as_crispy_errors }}
+            {{ form.full_name|as_crispy_field }}
+            {{ form.email|as_crispy_field }}
+            {{ form.address1|as_crispy_field }}
+            {{ form.address2|as_crispy_field }}
+            {{ form.city|as_crispy_field }}
+            {{ form.state|as_crispy_field }}
+            {{ form.zipcode|as_crispy_field }}
+			<button type="submit" class="btn btn-primary w-100 fs-5">
+				Submit Shipping Address&nbsp;&nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i>
+			</button>
+		</form>
+	</section>
+</main>
+{% endblock %}

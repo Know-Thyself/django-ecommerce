@@ -29,6 +29,7 @@ urlpatterns = [
     path('user-logout/', views.user_logout, name='user-logout'),
     path('manage-profile/', views.manage_profile, name='manage-profile'),
     path('delete-account/', views.delete_account, name='delete-account'),
+    path('shipping/', views.shipping, name='shipping'),
     # Reset password
     # 1. Submit email form
     path(
