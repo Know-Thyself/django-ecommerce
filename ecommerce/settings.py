@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'account',
     'crispy_forms',
     'crispy_bootstrap5',
+    'payment',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
