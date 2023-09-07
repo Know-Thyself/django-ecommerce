@@ -8,6 +8,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from os import environ
 from dotenv import load_dotenv
 load_dotenv()
@@ -74,6 +75,7 @@ def user_login(request):
             if user is not None:
                 login(request=request, user=user)
                 request.session['username'] = username
+                messages.success(request, f'Welcome {username}! You have successfully logged in!')
                 return redirect('dashboard')
     context = {'form': form}
     return render(request, 'account/user-login.html', context)
@@ -105,6 +107,7 @@ def manage_profile(request):
         user = UpdateUserForm(request.POST, instance=request.user)
         if user.is_valid():
             user.save()
+            messages.success(request, 'Your account is successfully updated!')
             return redirect('dashboard')
 
     context = {'user': user}
@@ -118,6 +121,7 @@ def delete_account(request):
 
     if request.method == 'POST':
         user.delete()
+        messages.success(request, 'Your account is successfully removed!')
         return redirect('store')
 
     return render(request, 'account/delete-account.html')

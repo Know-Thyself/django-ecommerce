@@ -1,4 +1,17 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block content %} {% for message in messages %}
+<div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+	<svg
+		class="bi flex-shrink-0 me-2"
+		width="24"
+		height="24"
+		role="img"
+		aria-label="Danger:"
+	>
+		<use xlink:href="#exclamation-triangle-fill" />
+	</svg>
+	<div>{{ message }}</div>
+</div>
+{% endfor %}
 <section class="py-4 text-center container">
 	<div class="row">
 		<div class="col-lg-6 col-md-8 mx-auto">
@@ -6,7 +19,8 @@
 			<p class="lead text-muted">Browse our extensive collection.</p>
 			{% if not request.user.is_authenticated %}
 			<a href="{% url 'register' %}" class="btn btn-primary my-2">
-				<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Create an account
+				<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Create an
+				account
 			</a>
 			{% endif %}
 		</div>

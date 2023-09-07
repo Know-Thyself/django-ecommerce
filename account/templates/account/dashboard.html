@@ -1,8 +1,28 @@
 {% extends "base.html" %} {% block content %}
 <main class="dash-board-main">
+	{% for message in messages %}
+	<div id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
+		<svg
+			class="bi flex-shrink-0 me-2"
+			width="24"
+			height="24"
+			role="img"
+			aria-label="Success:"
+		>
+			<use xlink:href="#check-circle-fill" />
+		</svg>
+		<strong>{{ message }}</strong>
+		<button
+			type="button"
+			class="btn-close"
+			data-bs-dismiss="alert"
+			aria-label="Close"
+		></button>
+	</div>
+	{% endfor %}
 	<section class="dash-board-wrapper">
-		<h3 class="py-4 text-center">Welcome {{username}}!</h3>
-		<h5 class="text-center">This is your dashboard.</h5>
+		<h3 class="py-4 text-center">{{username}}'s Dashbord!</h3>
+		<h5 class="text-center">Explore your options.</h5>
 		<br />
 		<div class="info px-5 d-flex card-group gap-2">
 			<div class="card border-light bg-dark text-white rounded">
@@ -14,8 +34,8 @@
 					<p class="card-text">Managing your orders is easy.</p>
 					<div class="text-center">
 						<a href="{% url 'manage-profile' %}" class="btn btn-primary my-2"
-							><i class="fa fa-shopping-cart" aria-hidden="true"> </i>&nbsp;Manage
-							Your Orders</a
+							><i class="fa fa-shopping-cart" aria-hidden="true"> </i
+							>&nbsp;Manage Your Orders</a
 						>
 					</div>
 				</div>

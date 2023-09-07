@@ -77,3 +77,11 @@ const updateCart = id => {
 		},
 	})
 }
+
+const dismissibleAlertList = document.querySelectorAll('.alert-dismissible')
+dismissibleAlertList.forEach(function (alert) {
+	new bootstrap.Alert(alert)
+	setTimeout(() => {
+		alert.style.display = 'none'
+	}, 3500);
+})
