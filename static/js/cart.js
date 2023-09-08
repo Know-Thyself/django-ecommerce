@@ -85,3 +85,30 @@ dismissibleAlertList.forEach(function (alert) {
 		alert.style.display = 'none'
 	}, 3500);
 })
+
+// $('#submit-shipping-address').on('submit', function (event) {
+// 	event.preventDefault()
+// 	let shipping_form = '#shipping-form'
+// 	$.ajax({
+// 		type: 'POST',
+// 		url: '/payment/complete-order/',
+// 		data: $(shipping_form).serialize(),
+// 		headers: {
+// 			'X-Requested-With': 'XMLHttpRequest',
+// 			'X-CSRFToken': getCookie('csrftoken'),
+// 		},
+// 		success: res => {
+// 			console.log(res);
+// 		},
+// 		error: (xhr, errmsg, err) => {
+// 			console.log(err)
+// 		},
+// 	})
+// 	// create_post()
+// })
+
+// const completeOrder = form => {
+// 	let data = document.getElementById('shipping-form')
+// 	console.log(data);
+// 	console.log(form);
+// }
