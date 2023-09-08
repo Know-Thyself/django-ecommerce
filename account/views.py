@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.sites.shortcuts import get_current_site
 from .forms import UserRegistrationForm, LoginForm, UpdateUserForm
 from payment.forms import ShippingForm
-from payment.models import ShippingAddressModel
+from payment.models import ShippingAddress
 from .token import user_tokenizer_generate
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
@@ -138,8 +138,8 @@ def delete_account(request):
 @login_required(login_url='user-login')
 def shipping(request):
     try:
-        shipping = ShippingAddressModel.objects.get(user=request.user.id)
-    except ShippingAddressModel.DoesNotExist:
+        shipping = ShippingAddress.objects.get(user=request.user.id)
+    except ShippingAddress.DoesNotExist:
         shipping = None
 
     form = ShippingForm(instance=shipping)

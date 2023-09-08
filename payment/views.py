@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import ShippingAddressModel
+from .models import ShippingAddress
 from .forms import ShippingForm
 
 
@@ -15,11 +15,10 @@ def payment_failed(request):
     return render(request, 'payment-failed.html')
 
 
-
 def checkout(request):
     try:
-        shipping_address = ShippingAddressModel.objects.get(user=request.user.id)
-    except ShippingAddressModel.DoesNotExist:
+        shipping_address = ShippingAddress.objects.get(user=request.user.id)
+    except ShippingAddress.DoesNotExist:
         shipping_address = None
 
     form = ShippingForm(instance=shipping_address)
