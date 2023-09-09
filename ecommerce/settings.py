@@ -94,9 +94,14 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'default': dj_database_url.parse(environ.get('DATABASE_URL')),
+        'default': dj_database_url.parse(default=environ.get('DATABASE_URL'), conn_max_age=600,
+        conn_health_checks=True,),
     }
 }
+
+DATABASES['default'] = dj_database_url.config(
+    default=environ.get('DATABASE_URL'), conn_max_age=600, conn_health_checks=True
+    )
 
 
 # Password validation
