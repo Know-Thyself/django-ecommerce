@@ -13,6 +13,13 @@ body {
 	margin: auto;
 }
 
+.card-body {
+	background-color: #9b6c6c;
+	background-color: #D3D3D3;
+	background-color: #DBD7D2;
+	background-color: #D1CBC1;
+}
+
 .col a {
 	text-decoration: none;
 }
