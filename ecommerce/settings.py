@@ -30,7 +30,7 @@ SECRET_KEY = environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sustainability-ecommerce.onrender.com']
+ALLOWED_HOSTS = ['sustainability-ecommerce.onrender.com', '127.0.0.1']
 
 
 # Application definition
@@ -94,8 +94,8 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'default': dj_database_url.parse(default=environ.get('DATABASE_URL'), conn_max_age=600,
-        conn_health_checks=True,),
+        # 'default': dj_database_url.parse(default=environ.get('DATABASE_URL'), conn_max_age=600,
+        # conn_health_checks=True,),
     }
 }
 
