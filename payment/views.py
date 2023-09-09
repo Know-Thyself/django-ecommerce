@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import ShippingAddress, Order, OrderedItem
 from .forms import ShippingForm
 from cart.cart import Cart
+from dotenv import load_dotenv
+from os import environ
+load_dotenv()
 
 
 def payment(request):
@@ -9,6 +12,10 @@ def payment(request):
 
 
 def payment_success(request):
+    # clear shopping cart
+    for key in list(request.session.keys()):
+        if key == environ.get('CART_SESSION_KEY'):
+            del request.session[key]
     return render(request, 'payment-success.html')
 
 
@@ -41,15 +48,27 @@ def checkout(request):
                 order = Order.objects.create(**order_detail)
                 order_id = order.pk
                 for item in cart:
-                    OrderedItem.objects.create(order_id=order_id, product=item['product'], quantity=item['quantity'], price=item['price'], user=request.user)
+                    OrderedItem.objects.create(
+                        order_id=order_id,
+                        product=item['product'],
+                        quantity=item['quantity'],
+                        unit_price=item['price'],
+                        user=request.user,
+                    )
             else:
                 order = Order.objects.create(**order_detail)
                 order_id = order.pk
                 for item in cart:
-                    OrderedItem.objects.create(order_id=order_id, product=item['product'], quantity=item['quantity'], price=item['price'])
+                    OrderedItem.objects.create(
+                        order_id=order_id,
+                        product=item['product'],
+                        quantity=item['quantity'],
+                        unit_price=item['price'],
+                    )
 
-            return redirect('dashboard') # temp
-
+            return redirect('payment-success')  # temp
+        else:
+            return redirect('payment-failed')
 
     context = {'form': form}
     return render(request, 'checkout.html', context=context)
