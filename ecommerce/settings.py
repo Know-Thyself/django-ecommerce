@@ -15,10 +15,11 @@ from dotenv import load_dotenv
 from os import environ
 import dj_database_url
 
-load_dotenv()
+# load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
@@ -29,8 +30,13 @@ SECRET_KEY = environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
+# DEBUG = environ.get('DEBUG', '0').lower() in ['true', 't', '1']
+DEBUG = environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['sustainability-ecommerce.onrender.com', '127.0.0.1']
+
+ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS').split(' ')
+# ALLOWED_HOSTS = ['sustainability-ecommerce.onrender.com', '127.0.0.1']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -61,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -89,20 +96,23 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'default': dj_database_url.parse(default=environ.get('DATABASE_URL'), conn_max_age=600,
+#         conn_health_checks=True,),
+#     }
+# }
+
+# DATABASES['default'] = dj_database_url.config(
+#     default=environ.get('DATABASE_URL'), conn_max_age=600, conn_health_checks=True
+#     )
+
 DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'default': dj_database_url.parse(default=environ.get('DATABASE_URL'), conn_max_age=600,
-        # conn_health_checks=True,),
-    }
+    'default': dj_database_url.parse(environ.get('DATABASE_URL'), conn_max_age=600),
 }
-
-DATABASES['default'] = dj_database_url.config(
-    default=environ.get('DATABASE_URL'), conn_max_age=600, conn_health_checks=True
-    )
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -146,6 +156,8 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'static/media'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -157,3 +169,5 @@ EMAIL_PORT = environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
