@@ -78,3 +78,7 @@ def complete_order(request):
     if request.method == 'POST':
         print(request.GET.get('data'))
         pass
+
+
+def export_env(_):
+    return {'SANDBOX_CLIENT_ID': environ.get('SANDBOX_CLIENT_ID')}
