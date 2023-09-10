@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.sites.shortcuts import get_current_site
 from .forms import UserRegistrationForm, LoginForm, UpdateUserForm
-from payment.forms import ShippingForm
-from payment.models import ShippingAddress
 from .token import user_tokenizer_generate
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
@@ -133,32 +131,3 @@ def delete_account(request):
         return redirect('store')
 
     return render(request, 'account/delete-account.html')
-
-
-@login_required(login_url='user-login')
-def shipping(request):
-    try:
-        shipping = ShippingAddress.objects.get(user=request.user.id)
-    except ShippingAddress.DoesNotExist:
-        shipping = None
-
-    form = ShippingForm(instance=shipping)
-
-    if request.method == 'POST':
-        form = ShippingForm(request.POST, instance=shipping)
-        if form.is_valid():
-            # Assign the user fk on the object
-            shipping_address = form.save(commit=False)
-            # Adding the fk
-            shipping_address.user = request.user
-            shipping_address.save()
-
-            return redirect('dashboard')
-    # if request.user.is_authenticated:
-    #     user = User.objects.get(id=request.user.id)
-    #     context = {'form': form, 'user': user}
-    #     return render(request, 'account/shipping.html', context=context)
-
-    context = {'form': form}
-
-    return render(request, 'account/shipping.html', context=context)

@@ -7,16 +7,16 @@ from os import environ
 load_dotenv()
 
 
-def payment(request):
-    return render(request, 'payment.html')
-
-
 def payment_success(request):
-    # clear shopping cart
-    for key in list(request.session.keys()):
-        if key == environ.get('CART_SESSION_KEY'):
-            del request.session[key]
     return render(request, 'payment-success.html')
+
+
+def process_payment(request):
+    # clear shopping cart
+    # for key in list(request.session.keys()):
+    #     if key == environ.get('CART_SESSION_KEY'):
+    #         del request.session[key]
+    return render(request, 'process-payment.html')
 
 
 def payment_failed(request):
@@ -31,12 +31,20 @@ def checkout(request):
     except ShippingAddress.DoesNotExist:
         # If the user is a guest or authenticated but did not register their shipping address
         shipping_address = None
+    except ShippingAddress.MultipleObjectsReturned:
+        shipping_address = ShippingAddress.objects.filter(user=request.user.id).last()
+        outdated_addresses = ShippingAddress.objects.filter(user=request.user.id).exclude(id=shipping_address.id)
+        outdated_addresses.delete()
     # The form will either be prefilled or empty depending on the above conditions
     form = ShippingForm(instance=shipping_address)
 
     if request.method == 'POST':
         form = ShippingForm(request.POST, instance=shipping_address)
         if form.is_valid():
+            shipping = form.save()
+            # Adding the fk
+            shipping.user = request.user
+            shipping.save()
             for key, val in request.POST.items():
                 if key != 'csrfmiddlewaretoken':
                     order_detail[key] = val
@@ -66,12 +74,12 @@ def checkout(request):
                         unit_price=item['price'],
                     )
 
-            return redirect('payment-success')  # temp
+            return redirect('process-payment')  # temp
         else:
             return redirect('payment-failed')
 
     context = {'form': form}
-    return render(request, 'checkout.html', context=context)
+    return render(request, 'shipping-address.html', context=context)
 
 
 def complete_order(request):

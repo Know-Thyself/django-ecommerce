@@ -176,3 +176,5 @@ EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Allow PayPal popup
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'

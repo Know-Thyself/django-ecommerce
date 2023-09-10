@@ -1,14 +1,14 @@
-{% extends "base.html" %} {% block content %}
-
+{% extends "base.html" %} 
+{% block content %}
 <main class="pt-5">
 	<div class="container">
-		<h1 class="h5">Shopping cart</h1>
+		<h1 class="h5">Review your items and make a payment</h1>
 		<hr />
 		{% for item in cart %}
 			{% with product=item.product %}
 				<br />
 				<div id="{{product.id}}" class="row mb-4 border product-item">
-					<div class="col-md-3 col-lg-2 order-md-first bg-light">
+					<div class="col-md-3 col-lg-2 order-md-first custom-card h-100">
 						<img
 							class="img-fluid mx-auto inline-block align-middle"
 							width="200px"
@@ -83,10 +83,12 @@
 		<div class="col-12 text-end">
 			<div class="h6 fw-bold pb-5">
 				<div id="total" class="pb-4">Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}</div>
-				<a type="button" class="btn btn-primary text-right" href="{% url 'shipping-address' %}">Proceed to Checkout &nbsp; <i class="fa fa-credit-card-alt" aria-hidden="true"></i></a>
+                <div class="paypal-buttons">
+                    <div type="submit" class="py-3" id="paypal-button-container"></div>
+                </div>
 			</div>
 		</div>
+        <!-- PayPal button container -->
 	</div>
 </main>
-
 {% endblock %}
