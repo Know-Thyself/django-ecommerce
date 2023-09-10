@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 from os import environ
-import dj_database_url
+import urllib.parse as up
 
 # load_dotenv()
 
@@ -34,8 +34,8 @@ SECRET_KEY = environ.get('SECRET_KEY')
 DEBUG = environ.get('DJANGO_DEBUG', '') != 'False'
 
 
-ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS').split(' ')
-# ALLOWED_HOSTS = ['sustainability-ecommerce.onrender.com', '127.0.0.1']
+# ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = ['sustainability-ecommerce.onrender.com', '127.0.0.1']
 # ALLOWED_HOSTS = []
 
 
@@ -100,19 +100,23 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'default': dj_database_url.parse(default=environ.get('DATABASE_URL'), conn_max_age=600,
-#         conn_health_checks=True,),
 #     }
 # }
 
-# DATABASES['default'] = dj_database_url.config(
-#     default=environ.get('DATABASE_URL'), conn_max_age=600, conn_health_checks=True
-#     )
+up.uses_netloc.append('postgres')
+url = up.urlparse(environ.get('DATABASE_URL'))
 
 DATABASES = {
-    'default': dj_database_url.parse(environ.get('DATABASE_URL'), conn_max_age=600),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': url.path[1:],
+        'USER': url.username,
+        'PASSWORD': url.password,
+        'HOST': url.hostname,
+        'PORT': url.port,
+    }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
