@@ -176,6 +176,55 @@
 					layout: 'vertical',
 				},
 
+				// onInit is called when the button first renders
+				onInit: function (data, actions) {
+					actions.disable()
+					const verifyForm = arr => {
+						return Array.from(arr).every(el => el.defaultValue !== '')
+					}
+					const requiredFields = document.querySelectorAll('.required')
+					requiredFields.forEach(el => {
+						el.addEventListener('keyup', e => {
+							el.defaultValue = e.target.value
+							if (verifyForm(requiredFields)) {
+								actions.enable()
+							} else {
+								actions.disable()
+							}
+						})
+					})
+
+					if (verifyForm(requiredFields)) {
+						actions.enable()
+					} else {
+						actions.disable()
+					}
+				},
+
+				onClick: function (data, actions) {
+					// Return a promise from onClick to do async validation
+					return fetch('/payment/shipping-address/', {
+						method: 'post',
+						headers: {
+							'content-type': 'application/json',
+						},
+					})
+						.then(function (res) {
+							console.log(res)
+							return res.json()
+						})
+						.then(function (data) {
+							console.log(data)
+							// If there is a validation error, reject, otherwise resolve
+							if (data.validationError) {
+								document.querySelector('#error').classList.remove('hidden')
+								return actions.reject()
+							} else {
+								return actions.resolve()
+							}
+						})
+				},
+
 				// set up the transaction
 				createOrder: (data, actions) => {
 					// pass in any options from the v2 orders create call:

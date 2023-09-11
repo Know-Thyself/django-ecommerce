@@ -75,8 +75,8 @@ def checkout(request):
                     )
 
             return redirect('process-payment')  # temp
-        else:
-            return redirect('payment-failed')
+        # else:
+        #     return redirect('payment-failed')
 
     context = {'form': form}
     return render(request, 'shipping-address.html', context=context)

@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
 <main class="form-main">
 	<section class="form-wrapper">
 		<h3 class="py-4 text-center">Shipping Address</h3>
@@ -26,6 +26,9 @@
 					aria-hidden="true"
 				></i>
 			</button>
+			<div class="paypal-buttons">
+                <div type="submit" class="py-3" id="paypal-button-container"></div>
+            </div>
 		</form>
 	</section>
 </main>
