@@ -14,8 +14,6 @@
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 		/>
-		<!-- Bootstrap Max CDN -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<title>My E-Commerce</title>
 	</head>
 	<body>
@@ -144,7 +142,7 @@
 		</svg>
 		{% block content %} {% endblock %}
 		<!-- JavaScript | jQuery -->
-		<script src="{% static 'js/cart.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 		<script
 			src="https://code.jquery.com/jquery-3.7.1.min.js"
 			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -156,113 +154,8 @@
 			integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 			crossorigin="anonymous"
 		></script>
-		<!-- PayPal client ID integration -->
-		{% if SANDBOX_CLIENT_ID %}
-		<script
-			src="https://www.paypal.com/sdk/js?client-id={{ SANDBOX_CLIENT_ID }}&currency=USD&intent=capture&enable-funding=venmo"
-			data-sdk-integration-source="integrationbuilder"
-		></script>
-		{% endif %}
-
-		<!-- PayPal JS SDK -->
-
-		<script>
-			const paypalButtonsComponent = paypal.Buttons({
-				// optional styling for buttons
-				// https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
-				style: {
-					color: 'blue',
-					shape: 'pill',
-					layout: 'vertical',
-				},
-
-				// onInit is called when the button first renders
-				onInit: function (data, actions) {
-					actions.disable()
-					const verifyForm = arr => {
-						return Array.from(arr).every(el => el.defaultValue !== '')
-					}
-					const requiredFields = document.querySelectorAll('.required')
-					requiredFields.forEach(el => {
-						el.addEventListener('keyup', e => {
-							el.defaultValue = e.target.value
-							if (verifyForm(requiredFields)) {
-								actions.enable()
-							} else {
-								actions.disable()
-							}
-						})
-					})
-
-					if (verifyForm(requiredFields)) {
-						actions.enable()
-					} else {
-						actions.disable()
-					}
-				},
-
-				onClick: function (data, actions) {
-					// Return a promise from onClick to do async validation
-					return fetch('/payment/shipping-address/', {
-						method: 'post',
-						headers: {
-							'content-type': 'application/json',
-						},
-					})
-						.then(function (res) {
-							console.log(res)
-							return res.json()
-						})
-						.then(function (data) {
-							console.log(data)
-							// If there is a validation error, reject, otherwise resolve
-							if (data.validationError) {
-								document.querySelector('#error').classList.remove('hidden')
-								return actions.reject()
-							} else {
-								return actions.resolve()
-							}
-						})
-				},
-
-				// set up the transaction
-				createOrder: (data, actions) => {
-					// pass in any options from the v2 orders create call:
-					// https://developer.paypal.com/api/orders/v2/#orders-create-request-body
-					const createOrderPayload = {
-						purchase_units: [
-							{
-								amount: {
-									value: '88.44',
-								},
-							},
-						],
-					}
-
-					return actions.order.create(createOrderPayload)
-				},
-
-				// finalize the transaction
-				onApprove: (data, actions) => {
-					const captureOrderHandler = details => {
-						const payerName = details.payer.name.given_name
-						console.log('Transaction completed')
-					}
-
-					return actions.order.capture().then(captureOrderHandler)
-				},
-
-				// handle unrecoverable errors
-				onError: err => {
-					console.error(
-						'An error prevented the buyer from checking out with PayPal'
-					)
-				},
-			})
-
-			paypalButtonsComponent.render('#paypal-button-container').catch(err => {
-				console.error('PayPal Buttons failed to render')
-			})
-		</script>
+		<!-- Bootstrap Max CDN -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		
 	</body>
 </html>

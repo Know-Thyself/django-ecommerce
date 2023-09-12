@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import ShippingAddress, Order, OrderedItem
+from django.http import JsonResponse
 from .forms import ShippingForm
 from cart.cart import Cart
 from dotenv import load_dotenv
 from os import environ
+
 load_dotenv()
 
 
@@ -16,7 +18,8 @@ def process_payment(request):
     # for key in list(request.session.keys()):
     #     if key == environ.get('CART_SESSION_KEY'):
     #         del request.session[key]
-    return render(request, 'process-payment.html')
+    context = {'customer_name': 'customer_name'}
+    return render(request, 'process-payment.html', context=context)
 
 
 def payment_failed(request):
@@ -33,12 +36,33 @@ def checkout(request):
         shipping_address = None
     except ShippingAddress.MultipleObjectsReturned:
         shipping_address = ShippingAddress.objects.filter(user=request.user.id).last()
-        outdated_addresses = ShippingAddress.objects.filter(user=request.user.id).exclude(id=shipping_address.id)
+        outdated_addresses = ShippingAddress.objects.filter(
+            user=request.user.id
+        ).exclude(id=shipping_address.id)
         outdated_addresses.delete()
     # The form will either be prefilled or empty depending on the above conditions
     form = ShippingForm(instance=shipping_address)
 
     if request.method == 'POST':
+        print('yessssssssss')
+        # data = {
+        #     'full_name': request.POST.get('name'),
+        #     'email': request.POST.get('email'),
+        #     'address1': request.POST.get('address1'),
+        #     'address2': request.POST.get('address2'),
+        #     'city': request.POST.get('city'),
+        #     'state': request.POST.get('state'),
+        #     'zipcode': request.POST.get('zipcode'),
+        # }
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        address1 = request.POST.get('address1')
+        address2 = request.POST.get('address2')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zipcode = request.POST.get('zipcode')
+        print(full_name, email, address1, address2, city)
+        # form = ShippingForm(request.POST, instance=shipping_address)
         form = ShippingForm(request.POST, instance=shipping_address)
         if form.is_valid():
             shipping = form.save()
@@ -52,6 +76,7 @@ def checkout(request):
             total_price = cart.get_total_price()
             order_detail['amount_paid'] = total_price
             if request.user.is_authenticated:
+                print(request.user)
                 order_detail['user'] = request.user
                 order = Order.objects.create(**order_detail)
                 order_id = order.pk
@@ -73,10 +98,12 @@ def checkout(request):
                         quantity=item['quantity'],
                         unit_price=item['price'],
                     )
-
-            return redirect('process-payment')  # temp
-        # else:
-        #     return redirect('payment-failed')
+            print(request.session)
+            return redirect('process-payment')
+            # response = JsonResponse({'msg': 'Success!'})
+            # return response
+        else:
+            return redirect('payment-failed')
 
     context = {'form': form}
     return render(request, 'shipping-address.html', context=context)
@@ -90,3 +117,6 @@ def complete_order(request):
 
 def export_env(_):
     return {'SANDBOX_CLIENT_ID': environ.get('SANDBOX_CLIENT_ID')}
+
+def customer_context(name):
+    return {'customer_name': name}

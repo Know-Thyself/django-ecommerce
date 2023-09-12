@@ -2,24 +2,23 @@
 {% block content %}
 <main class="pt-5">
 	<div class="container">
-		<h1 class="h5">Review your items and make a payment</h1>
+		<h1 class="h5">{{customer_name}}Review your items and make a payment</h1>
 		<hr />
 		{% for item in cart %}
 			{% with product=item.product %}
 				<br />
 				<div id="{{product.id}}" class="row mb-4 border product-item">
-					<div class="col-md-3 col-lg-2 order-md-first custom-card h-100">
+					<div class="col-md-3 col-lg-2 order-md-first h-100">
 						<img
-							class="img-fluid mx-auto inline-block align-middle"
-							width="200px"
+							class="img-fluid mx-auto"
+							width="150px"
 							alt="{{ product.title }}"
 							src="{{ product.image.url}} "
 						/>
 					</div>
 					<div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
 						<a href="{{ product.get_absolute_url}}" class="text-info text-decoration-none">
-							<!-- Product get absolute url -->
-							<h1 class="h5 pt-2">{{ product.title }}</h1>
+							<p class="h6 pt-2">{{ product.title }}</p>
 						</a>
 						<div class="border">
 							<div class="col border-bottom">
@@ -42,39 +41,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="col">
-								<div class="row p-3">
-									<div class="col-12">
-										<label for="select">Quantity: </label>
-										&nbsp;
-										<select id="select{{ product.id }}">
-											<option selected>{{item.quantity}}</option>
-											<option value="">1</option>
-											<option value="">2</option>
-											<option value="">3</option>
-											<option value="">4</option>
-										</select>
-										<br />
-										<br />
-										<button
-											type="button"
-											id="update-button"
-											class="btn btn-primary btn-sm update-button"
-											onClick="updateCart('{{product.id}}')"
-										>
-											Update Quantity
-										</button>
-										&nbsp;
-										<button
-											data-index="{{ product.id }}"
-											class="btn btn-danger btn-sm delete-button"
-											onClick="removeItem('{{product.id}}')"
-										>
-											Remove From Cart
-										</button>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -84,11 +50,66 @@
 			<div class="h6 fw-bold pb-5">
 				<div id="total" class="pb-4">Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}</div>
                 <div class="paypal-buttons">
-                    <div type="submit" class="py-3" id="paypal-button-container"></div>
+                    <div class="py-3" id="paypal-button-container"></div>
                 </div>
 			</div>
 		</div>
         <!-- PayPal button container -->
+		<div class="paypal-buttons">
+            <div class="py-3" id="paypal-button-container"></div>
+        </div>
 	</div>
 </main>
+<!-- PayPal client ID integration -->
+{% if SANDBOX_CLIENT_ID %}
+<script
+	src="https://www.paypal.com/sdk/js?client-id={{ SANDBOX_CLIENT_ID }}&currency=USD&intent=capture&enable-funding=venmo"
+	data-sdk-integration-source="integrationbuilder"
+></script>
+{% endif %}
+<!-- PayPal JS SDK -->
+{% csrf_token %}
+<script>
+	const totalPrice = '{{cart.get_total_price}}'
+	const paypalButtonsComponent = paypal.Buttons({
+		
+		style: {
+			layout: 'vertical',
+			shape: 'pill',
+			color: 'blue',
+		},
+
+		createOrder: (data, actions) => {
+			return actions.order.create({
+				purchase_units: [
+					{
+						amount: {
+							value: totalPrice,
+							currency_code: 'USD'
+						}
+					}
+				]
+			});
+		},
+
+		onApprove: function(data, actions) {
+			const captureOrderHandler = details => {
+				console.log('Transaction completed. Total amount paid $ ' + details.purchase_units[0].amount.value);
+			}
+			// This function captures the funds from the transaction.
+			return actions.order.capture().then(captureOrderHandler).then(window.location.href='{% url "store" %}');
+		},
+
+		onError: err => {
+			console.log(err)
+			console.error(
+				'An error prevented the buyer from checking out with PayPal'
+			)
+		},
+	})
+	
+	paypalButtonsComponent.render("#paypal-button-container").catch(err => {
+		console.error('PayPal Buttons failed to render')
+	});
+</script>
 {% endblock %}
