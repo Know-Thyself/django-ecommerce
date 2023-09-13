@@ -178,3 +178,5 @@ EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Allow PayPal popup
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+PAYPAL_CLIENT_ID = environ.get('SANDBOX_CLIENT_ID')
+PAYPAL_SECRET = environ.get('SANDBOX_SECRET_KEY')

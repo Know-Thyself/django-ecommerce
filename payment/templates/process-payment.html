@@ -1,64 +1,53 @@
-{% extends "base.html" %} 
-{% block content %}
-<main class="pt-5">
-	<div class="container">
-		<h1 class="h5">{{customer_name}}Review your items and make a payment</h1>
-		<hr />
-		{% for item in cart %}
-			{% with product=item.product %}
-				<br />
-				<div id="{{product.id}}" class="row mb-4 border product-item">
-					<div class="col-md-3 col-lg-2 order-md-first h-100">
-						<img
-							class="img-fluid mx-auto"
-							width="150px"
-							alt="{{ product.title }}"
-							src="{{ product.image.url}} "
-						/>
-					</div>
-					<div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
-						<a href="{{ product.get_absolute_url}}" class="text-info text-decoration-none">
-							<p class="h6 pt-2">{{ product.title }}</p>
-						</a>
-						<div class="border">
-							<div class="col border-bottom">
-								<div class="row p-3">
-									<div class="col-6">Unit price : --></div>
-									<div class="col-6 text-end">
-										<span class="h6 fw-bold">
-											{{ product.price }}
-										</span>
-									</div>
-								</div>
-							</div>
-							<div class="col border-bottom">
-								<div class="row p-3">
-									<div class="col-6">Sub total : --></div>
-									<div class="col-6 text-end">
-										<span id="sub-total-{{ product.id }}" class="h6 fw-bold">
-											{{ item.total }}
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			{% endwith %}
-		{% endfor %}
-		<div class="col-12 text-end">
-			<div class="h6 fw-bold pb-5">
-				<div id="total" class="pb-4">Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}</div>
-                <div class="paypal-buttons">
-                    <div class="py-3" id="paypal-button-container"></div>
-                </div>
+{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
+<main class="form-main">
+	<section class="form-wrapper">
+		<h3 class="py-4 text-center">Shipping Address</h3>
+		<form method="POST" autocomplete="off" autocapitalize="off" novalidate>
+			{% csrf_token %} {{ form|as_crispy_errors }} {{
+			form.full_name|as_crispy_field }} {% if not request.user.is_authenticated
+			%} {{ form.email|as_crispy_field }} {% else %}
+			<input
+				type="text"
+				class="d-none"
+				id="id_email"
+				name="email"
+				value="{{ user.email }}"
+			/>
+			{% endif %} {{ form.address1|as_crispy_field }} {{
+			form.address2|as_crispy_field }} {{ form.city|as_crispy_field }} {{
+			form.state|as_crispy_field }} {{ form.zipcode|as_crispy_field }}
+			<button
+				id="submit-process-payment"
+				type="submit"
+				class="btn btn-primary w-100 fs-5"
+			>
+				Submit Shipping Address&nbsp;&nbsp;<i
+					class="fa fa-map-marker"
+					aria-hidden="true"
+				></i>
+			</button>
+			<div
+				id="error"
+				class="alert alert-danger d-flex align-items-center d-none"
+				role="alert"
+			>
+				<svg
+					class="bi flex-shrink-0 me-2"
+					width="24"
+					height="24"
+					role="img"
+					aria-label="Danger:"
+				>
+					<use xlink:href="#exclamation-triangle-fill" />
+				</svg>
+				<div>Please make sure all the required fields are filled</div>
 			</div>
-		</div>
-        <!-- PayPal button container -->
-		<div class="paypal-buttons">
-            <div class="py-3" id="paypal-button-container"></div>
-        </div>
-	</div>
+			<!-- PayPal button container -->
+			<div class="paypal-buttons">
+				<div class="py-3" id="paypal-button-container"></div>
+			</div>
+		</form>
+	</section>
 </main>
 <!-- PayPal client ID integration -->
 {% if SANDBOX_CLIENT_ID %}
@@ -70,9 +59,14 @@
 <!-- PayPal JS SDK -->
 {% csrf_token %}
 <script>
+	const url = '{% url "process-payment" %}'
 	const totalPrice = '{{cart.get_total_price}}'
+	const formData = new FormData()
+	const inputFields = document.querySelectorAll('.required')
+	const validateInput = lst => {
+		return Array.from(lst).every(el => el.value !== '')
+	}
 	const paypalButtonsComponent = paypal.Buttons({
-		
 		style: {
 			layout: 'vertical',
 			shape: 'pill',
@@ -85,31 +79,80 @@
 					{
 						amount: {
 							value: totalPrice,
-							currency_code: 'USD'
-						}
-					}
-				]
-			});
+							currency_code: 'USD',
+						},
+					},
+				],
+			})
 		},
 
-		onApprove: function(data, actions) {
+		onInit: function (data, actions) {
+			// Disable the buttons
+			actions.disable()
+			// Make sure all input fields are filled
+			inputFields.forEach(element =>
+				element.addEventListener('keyup', event => {
+					if (validateInput(inputFields)) {
+						actions.enable()
+					} else {
+						actions.disable()
+					}
+				})
+			)
+			// Check if the user has prefilled shipping address
+			if (validateInput(inputFields)) {
+				actions.enable()
+			} else {
+				actions.disable()
+			}
+		},
+		// Asynchronous validation
+		onClick: function (data, actions) {
+			// Return a promise from onClick to do async validation
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: {
+					full_name: $('#id_full_name').val(),
+					email: $('#id_email').val(),
+					address1: $('#id_address1').val(),
+					address2: $('#id_address2').val(),
+					city: $('#id_city').val(),
+					state: $('#id_state').val(),
+					zipcode: $('#id_zipcode').val(),
+					csrfmiddlewaretoken: '{{ csrf_token }}',
+					action: 'post',
+				},
+				success: data => {
+					window.location.replace("{% url 'payment-success' %}")
+				},
+				error: error => {
+					window.location.replace("{% url 'payment-failed' %}")
+				},
+			})
+		},
+
+		onApprove: function (data, actions) {
 			const captureOrderHandler = details => {
-				console.log('Transaction completed. Total amount paid $ ' + details.purchase_units[0].amount.value);
+				console.log(
+					'Transaction completed. Total amount paid $ ' +
+						details.purchase_units[0].amount.value
+				)
 			}
 			// This function captures the funds from the transaction.
-			return actions.order.capture().then(captureOrderHandler).then(window.location.href='{% url "store" %}');
+			return actions.order.capture().then(captureOrderHandler)
 		},
 
 		onError: err => {
-			console.log(err)
 			console.error(
 				'An error prevented the buyer from checking out with PayPal'
 			)
+			document.querySelector('#error').classList.remove('d-none')
 		},
 	})
-	
-	paypalButtonsComponent.render("#paypal-button-container").catch(err => {
+
+	paypalButtonsComponent.render('#paypal-button-container').catch(err => {
 		console.error('PayPal Buttons failed to render')
-	});
+	})
 </script>
 {% endblock %}
