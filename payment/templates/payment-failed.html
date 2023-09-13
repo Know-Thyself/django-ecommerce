@@ -1,4 +1,16 @@
 {% extends "base.html" %} 
 {% block content %}
-<h1>Payment Failed</h1>
+<main class="verification">
+	<section class="card custom-card">
+        <div class="card-header bg-danger">
+            <i class="fa fa-exclamation-triangle text-white"></i>
+            <br>
+            <h5 class="text-white"><strong>Payment Failed!</strong></h5>
+        </div>
+		<div class="card-body">
+			<h5 class="card-title">Please edit your entries and try again.</h5>
+			<a href="{% url 'process-payment' %}" class="btn btn-primary">Back To Checkout</a>
+		</div>
+	</section>
+</main>
 {% endblock %}

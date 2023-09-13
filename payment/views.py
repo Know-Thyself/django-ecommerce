@@ -14,7 +14,8 @@ def payment_success(request):
     for key in list(request.session.keys()):
         if key == environ.get('CART_SESSION_KEY'):
             del request.session[key]
-    return render(request, 'payment-success.html')
+    context = {'customer': request.user}
+    return render(request, 'payment-success.html', context)
 
 
 def registered_user_checkout(request):
@@ -94,15 +95,6 @@ def checkout(request):
     return render(request, 'process-payment.html', context=context)
 
 
-def complete_order(request):
-    if request.method == 'POST':
-        print(request.GET.get('data'))
-        pass
-
-
 def export_env(_):
     return {'SANDBOX_CLIENT_ID': environ.get('SANDBOX_CLIENT_ID')}
 
-
-def customer_context(name):
-    return {'customer_name': name}
