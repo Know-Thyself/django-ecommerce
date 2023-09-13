@@ -4,86 +4,93 @@
 	<div class="container">
 		<h1 class="h5">Shopping cart</h1>
 		<hr />
-		{% for item in cart %}
-			{% with product=item.product %}
-				<br />
-				<div id="{{product.id}}" class="row mb-4 border product-item">
-					<div class="col-md-3 col-lg-2 order-md-first bg-light">
-						<img
-							class="img-fluid mx-auto inline-block align-middle"
-							width="200px"
-							alt="{{ product.title }}"
-							src="{{ product.image.url}} "
-						/>
+		{% for item in cart %} {% with product=item.product %}
+		<br />
+		<div id="{{product.id}}" class="row mb-4 border product-item">
+			<div class="col-md-3 col-lg-2 order-md-first bg-light">
+				<img
+					class="img-fluid mx-auto inline-block align-middle"
+					width="200px"
+					alt="{{ product.title }}"
+					src="{{ product.image.url}} "
+				/>
+			</div>
+			<div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
+				<a
+					href="{{ product.get_absolute_url}}"
+					class="text-info text-decoration-none"
+				>
+					<!-- Product get absolute url -->
+					<h1 class="h5 pt-2">{{ product.title }}</h1>
+				</a>
+				<div class="border">
+					<div class="col border-bottom">
+						<div class="row p-3">
+							<div class="col-6">Unit price : --></div>
+							<div class="col-6 text-end">
+								<span class="h6 fw-bold"> {{ product.price }} </span>
+							</div>
+						</div>
 					</div>
-					<div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
-						<a href="{{ product.get_absolute_url}}" class="text-info text-decoration-none">
-							<!-- Product get absolute url -->
-							<h1 class="h5 pt-2">{{ product.title }}</h1>
-						</a>
-						<div class="border">
-							<div class="col border-bottom">
-								<div class="row p-3">
-									<div class="col-6">Unit price : --></div>
-									<div class="col-6 text-end">
-										<span class="h6 fw-bold">
-											{{ product.price }}
-										</span>
-									</div>
-								</div>
+					<div class="col border-bottom">
+						<div class="row p-3">
+							<div class="col-6">Sub total : --></div>
+							<div class="col-6 text-end">
+								<span id="sub-total-{{ product.id }}" class="h6 fw-bold">
+									{{ item.total }}
+								</span>
 							</div>
-							<div class="col border-bottom">
-								<div class="row p-3">
-									<div class="col-6">Sub total : --></div>
-									<div class="col-6 text-end">
-										<span id="sub-total-{{ product.id }}" class="h6 fw-bold">
-											{{ item.total }}
-										</span>
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="row p-3">
-									<div class="col-12">
-										<label for="select">Quantity: </label>
-										&nbsp;
-										<select id="select{{ product.id }}">
-											<option selected>{{item.quantity}}</option>
-											<option value="">1</option>
-											<option value="">2</option>
-											<option value="">3</option>
-											<option value="">4</option>
-										</select>
-										<br />
-										<br />
-										<button
-											type="button"
-											id="update-button"
-											class="btn btn-primary btn-sm update-button"
-											onClick="updateCart('{{product.id}}')"
-										>
-											Update Quantity
-										</button>
-										&nbsp;
-										<button
-											data-index="{{ product.id }}"
-											class="btn btn-danger btn-sm delete-button"
-											onClick="removeItem('{{product.id}}')"
-										>
-											Remove From Cart
-										</button>
-									</div>
-								</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="row p-3">
+							<div class="col-12">
+								<label for="select">Quantity: </label>
+								&nbsp;
+								<select id="select{{ product.id }}">
+									<option selected>{{item.quantity}}</option>
+									<option value="">1</option>
+									<option value="">2</option>
+									<option value="">3</option>
+									<option value="">4</option>
+								</select>
+								<br />
+								<br />
+								<button
+									type="button"
+									id="update-button"
+									class="btn btn-primary btn-sm update-button"
+									onClick="updateCart('{{product.id}}')"
+								>
+									Update Quantity
+								</button>
+								&nbsp;
+								<button
+									data-index="{{ product.id }}"
+									class="btn btn-danger btn-sm delete-button"
+									onClick="removeItem('{{product.id}}')"
+								>
+									Remove From Cart
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
-			{% endwith %}
-		{% endfor %}
+			</div>
+		</div>
+		{% endwith %} {% endfor %}
 		<div class="col-12 text-end">
 			<div class="h6 fw-bold pb-5">
-				<div id="total" class="pb-4">Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}</div>
-				<a type="button" class="btn btn-primary text-right" href="{% url 'shipping-address' %}">Proceed to Checkout &nbsp; <i class="fa fa-credit-card-alt" aria-hidden="true"></i></a>
+				<div id="total" class="pb-4">
+					Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}
+				</div>
+				<a
+					type="button"
+					class="btn btn-primary text-right"
+					href="{% url 'process-payment' %}"
+					>Proceed to Checkout &nbsp;
+					<i class="fa fa-credit-card-alt" aria-hidden="true"></i
+				></a>
 			</div>
 		</div>
 	</div>
