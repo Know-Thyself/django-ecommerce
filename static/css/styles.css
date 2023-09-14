@@ -2,13 +2,14 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	overflow-x: auto;
 }
 
 .btn {
 	border-radius: 4px !important;
 }
 
-.products__wrapper {
+.products__wrapper, .dash-board-main {
 	width: 95%;
 	margin: auto;
 }

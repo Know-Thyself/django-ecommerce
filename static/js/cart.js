@@ -82,6 +82,6 @@ const dismissibleAlertList = document.querySelectorAll('.alert-dismissible')
 dismissibleAlertList.forEach(function (alert) {
 	new bootstrap.Alert(alert)
 	setTimeout(() => {
-		alert.style.display = 'none'
+		alert.classList.add('d-none')
 	}, 3500)
 })

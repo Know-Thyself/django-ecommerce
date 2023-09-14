@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-<main class="dash-board-main">
+<main class="dash-board-main pb-lg-5">
 	{% for message in messages %}
 	<div id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
 		<svg
@@ -24,23 +24,38 @@
 		<h3 class="py-4 text-center">{{username}}'s Dashbord!</h3>
 		<h5 class="text-center">Explore your options.</h5>
 		<br />
-		<div class="info px-5 d-flex card-group gap-2">
-			<div class="card border-light bg-dark rounded">
+		<div class="px-5 row gap-4 justify-content-center">
+			<div class="card border-light bg-dark rounded col-md-5">
 				<div class="card-header text-white fs-4 fw-bold">
-					Orders &nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"> </i>
+					Cart &nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"> </i>
 				</div>
 				<div class="card-body">
-					<h5 class="card-title text-primary-emphasis">View and manage your orders</h5>
+					<h5 class="card-title text-primary-emphasis">View and manage your Cart</h5>
 					<p class="card-text text-primary-emphasis">Managing your orders is easy.</p>
 					<div class="text-center">
 						<a href="{% url 'registered-user-checkout' %}" class="btn btn-primary my-2"
 							><i class="fa fa-shopping-cart" aria-hidden="true"> </i
-							>&nbsp;Manage Your Orders</a
+							>&nbsp;Registered Members Checkout</a
 						>
 					</div>
 				</div>
 			</div>
-			<div class="card border-light bg-dark rounded">
+			<div class="card border-light bg-dark rounded col-md-5">
+				<div class="card-header text-white fs-4 fw-bold">
+					Orders &nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"> </i>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title text-primary-emphasis">View your recent order</h5>
+					<p class="card-text text-primary-emphasis">Your delivery has been dispatched.</p>
+					<div class="text-center">
+						<a href="{% url 'track-orders' %}" class="btn btn-primary my-2"
+							><i class="fa fa-shopping-cart" aria-hidden="true"> </i
+							>&nbsp;View Your Recent Order</a
+						>
+					</div>
+				</div>
+			</div>
+			<div class="card border-light bg-dark rounded col-md-5">
 				<div class="card-header text-white fs-4 fw-bold">
 					Update Your Profile &nbsp;<i
 						class="fa fa-address-card"
@@ -58,7 +73,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="card border-light bg-dark rounded">
+			<div class="card border-light bg-dark rounded col-md-5">
 				<div class="card-header text-white fs-4 fw-bold">
 					Delete Your Account &nbsp;<i
 						class="fa fa-trash"
@@ -75,7 +90,7 @@
 						>
 					</div>
 				</div>
-			</div>
+			</div>			
 		</div>
 	</section>
 </main>

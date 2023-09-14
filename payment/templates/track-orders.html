@@ -1,0 +1,30 @@
+{% extends "base.html" %} 
+{% block content %}
+<main class="container order p-4">
+    <div class="card-header">
+        <h5><strong>My Orders</strong></h5>
+    </div>
+    {% for item in ordered_items %}
+        <section class="card custom-card">
+            <div class="card-header">
+                <h5><strong>{{ item.order }}</strong></h5>
+                <h5 class="card-title">{{ item.product }}</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Unit price: ${{ item.unit_price }}</p>
+                <p class="card-text">Quantity: {{ item.quantity }}</p>
+                <!-- <p class="card-text">{{ item.price }}</p> -->
+                <p class="card-text">{{ item.price }}</p>
+                <h5 class="card-title">Delivery Sent To: {{ shipping_address.full_name }}</h5>
+                <p class="card-text">First line address: {{ shipping_address.address1 }}</p>
+                <p class="card-text">Second line address: {{ shipping_address.address2 }}</p>
+                <p class="card-text">City: {{ shipping_address.city }}</p>
+                <p class="card-text">Order Date: {{ order.order_date }}</p>
+                <p class="card-text">Total amout paid: ${{ order.amount_paid }}</p>
+
+                <a href="{% url 'store' %}" class="btn btn-primary">Back To Store</a>
+            </div>
+        </section>
+    {% endfor %}
+</main>
+{% endblock %}

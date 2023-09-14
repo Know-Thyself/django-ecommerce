@@ -10,4 +10,5 @@ urlpatterns = [
         name='registered-user-checkout',
     ),
     path('failed/', views.payment_failed, name='payment-failed'),
+    path('track-orders/', views.track_orders, name='track-orders')
 ]

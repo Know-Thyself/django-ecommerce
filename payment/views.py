@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import ShippingAddress, Order, OrderedItem
 from django.http import JsonResponse
 from .forms import ShippingForm
@@ -25,6 +26,12 @@ def registered_user_checkout(request):
     except ShippingAddress.DoesNotExist:
         # If the user is a guest or authenticated but did not register their shipping address
         shipping_address = None
+    except ShippingAddress.MultipleObjectsReturned:
+        shipping_address = ShippingAddress.objects.filter(user=request.user.id).last()
+        outdated_addresses = ShippingAddress.objects.filter(
+            user=request.user.id
+        ).exclude(id=shipping_address.id)
+        outdated_addresses.delete()
     if shipping_address:
         context = {'customer_name': request.user}
         return render(request, 'registered-user-checkout.html', context=context)
@@ -97,4 +104,17 @@ def checkout(request):
 
 def export_env(_):
     return {'SANDBOX_CLIENT_ID': environ.get('SANDBOX_CLIENT_ID')}
+
+@login_required(login_url='user-login')
+def track_orders(request):
+    try:
+        ordered_items = OrderedItem.objects.filter(user=request.user.id)
+        shipping_address = ShippingAddress.objects.filter(user=request.user.id).last()
+        order = Order.objects.filter(user=request.user.id).last()
+        context = {'ordered_items': ordered_items, 'shipping_address': shipping_address, 'order': order}
+        return render(request, 'track-orders.html', context)
+    except ShippingAddress.MultipleObjectsReturned:
+        print('multiple objects')
+    except:
+        return render(request, 'track-orders.html')
 
