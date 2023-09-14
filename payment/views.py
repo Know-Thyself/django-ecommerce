@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from .models import ShippingAddress, Order, OrderedItem
 from django.http import JsonResponse
 from .forms import ShippingForm
@@ -65,6 +66,7 @@ def checkout(request):
         if form.is_valid():
             shipping = form.save()
             shipping.save()
+            products = []
             for key, val in request.POST.items():
                 if key != 'csrfmiddlewaretoken' and key != 'action':
                     order_detail[key] = val
@@ -84,6 +86,7 @@ def checkout(request):
                         unit_price=item['price'],
                         user=request.user,
                     )
+                    products.append(item['product'])
             else:
                 order = Order.objects.create(**order_detail)
                 order_id = order.pk
@@ -94,7 +97,16 @@ def checkout(request):
                         quantity=item['quantity'],
                         unit_price=item['price'],
                     )
+                products.append(item['product'])
+            send_mail(
+                subject='Payment Confirmed',
+                message=f"Hi {request.POST.get('full_name')},\nThank you for placing your order!\n\nHere\'s what you\'ve ordered:\n{str(products)}\nTotal amount paid: ${total_price}",
+                from_email=environ.get('EMAIL_HOST_USER'),
+                recipient_list=[request.POST.get('email')],
+                fail_silently=False
+            )
             return JsonResponse({'msg': 'Success!'})
+
         else:
             return redirect('payment-failed')
 
@@ -105,16 +117,20 @@ def checkout(request):
 def export_env(_):
     return {'SANDBOX_CLIENT_ID': environ.get('SANDBOX_CLIENT_ID')}
 
+
 @login_required(login_url='user-login')
 def track_orders(request):
     try:
         ordered_items = OrderedItem.objects.filter(user=request.user.id)
         shipping_address = ShippingAddress.objects.filter(user=request.user.id).last()
         order = Order.objects.filter(user=request.user.id).last()
-        context = {'ordered_items': ordered_items, 'shipping_address': shipping_address, 'order': order}
+        context = {
+            'ordered_items': ordered_items,
+            'shipping_address': shipping_address,
+            'order': order,
+        }
         return render(request, 'track-orders.html', context)
     except ShippingAddress.MultipleObjectsReturned:
         print('multiple objects')
     except:
         return render(request, 'track-orders.html')
-
