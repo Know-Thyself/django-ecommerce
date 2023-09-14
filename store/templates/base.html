@@ -17,7 +17,7 @@
 		<title>My E-Commerce</title>
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-lg bg-primary justify-content-center">
+		<nav class="navbar navbar-expand-lg bg-primary">
 			<a class="navbar-brand main-heading text-white" href="{% url 'store' %}">
 				&nbsp; &nbsp; Sustainable Brands
 			</a>
@@ -33,7 +33,8 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<div class="collapse navbar-collapse" id="navbarCollapse">
+			
+			<div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
 					<li class="nav-item dropdown">
 						<a
@@ -60,9 +61,6 @@
 						</ul>
 					</li>
 				</ul>
-			</div>
-
-			<div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
 				<ul class="navbar-nav ms-auto">
 					{% if request.user.is_authenticated %}
 					<li class="nav-item">

@@ -120,10 +120,10 @@
 					action: 'post',
 				},
 				success: data => {
-					window.location.replace("{% url 'payment-success' %}")
+					console.log(data)
 				},
 				error: error => {
-					window.location.replace("{% url 'payment-failed' %}")
+					console.error(error)
 				},
 			})
 		},
@@ -136,7 +136,9 @@
 				)
 			}
 			// This function captures the funds from the transaction.
-			return actions.order.capture().then(captureOrderHandler)
+			return actions.order.capture()
+				.then(captureOrderHandler)
+				.then(window.location.replace("{% url 'payment-success' %}"))
 		},
 
 		onError: err => {
@@ -144,6 +146,7 @@
 				'An error prevented the buyer from checking out with PayPal'
 			)
 			document.querySelector('#error').classList.remove('d-none')
+			window.location.replace("{% url 'payment-failed' %}")
 		},
 	})
 
