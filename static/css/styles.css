@@ -25,20 +25,18 @@ body {
 	height: 18rem;
 }
 
-.form-main,
+/* .form-main,
 .main {
 	padding: 2rem 0;
-}
+} */
 
 .form-wrapper,
 .wrapper {
-	width: 700px;
-	margin: auto;
-	padding: 1rem 3rem;
-	border-radius: 4px;
-	background-color: #d1cbc1;
-	background-color: #dcdcdc;
 	background-color: #DADADA;
+}
+.form-wrapper {
+	width: 70%;
+	margin: auto;
 }
 
 .verification {
@@ -52,8 +50,8 @@ body {
 
 .custom-card,
 .password-reset {
-	width: 700px;
-	margin: auto;
+	/* width: 700px;
+	margin: auto; */
 	background-color: #aca79e;
 }
 
@@ -64,4 +62,18 @@ body {
 
 .fa-bars {
 	color: #aca79e;
+}
+
+@media only screen and (min-width: 924px) {
+	.form-wrapper {
+		width: 42rem;
+		margin: auto;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.form-wrapper {
+		width: 90%;
+		margin: auto;
+	}
 }

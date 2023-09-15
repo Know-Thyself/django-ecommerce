@@ -1,12 +1,14 @@
 {% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
-<main class="form-main py-lg-4">
-	<section class="form-wrapper">
-		<h3 class="py-4">Registration Form</h3>
+<main class="form-main py-4 container">
+	<section class="form-wrapper container-md w-75">
+		<div class="text-center">
+			<h3 class="p-4">Registration Form</h3>
+		</div>
 		<!-- {% crispy form %} -->
 		<form
 			method="post"
 			id="registration-form"
-			class="blueForms"
+			class="blueForms px-4"
 			autocomplete="off"
 			autocapitalize="off"
 			novalidate
