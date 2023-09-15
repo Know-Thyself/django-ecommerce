@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-<main class="dash-board-main pb-lg-5">
+<main class="pb-5 px-0 dash-board-main">
 	{% for message in messages %}
 	<div id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
 		<svg
@@ -20,11 +20,11 @@
 		></button>
 	</div>
 	{% endfor %}
-	<section class="dash-board-wrapper container">
+	<section class="dash-board-wrapper">
 		<h3 class="py-4 text-center">{{username}}'s Dashbord!</h3>
 		<h5 class="text-center">Explore your options.</h5>
 		<br />
-		<div class="row gap-4 row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-3 justify-content-center">
+		<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 justify-content-center gap-2">
 			<div class="card px-0 border-light bg-dark rounded col">
 				<div class="card-header text-white fs-4 fw-bold">
 					Cart &nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"> </i>

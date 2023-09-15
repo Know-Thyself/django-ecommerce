@@ -1,15 +1,17 @@
 {% extends "base.html" %} {% block content %}
-<div class="card custom-card">
-	<div class="card-header text-danger fs-3 fw-bold">Warning!</div>
+<div class="card custom-card mt-5">
+	<div class="card-header text-danger fs-3 fw-bold"><i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>&nbsp;Warning!</div>
 	<div class="card-body">
 		<h5 class="card-title">Are you sure you want to delete your account ?</h5>
 		<form method="POST" autocomplete="off" autocapitalize="off">
 			{% csrf_token %}
-			<a type="button" href="{% url 'dashboard' %}" class="btn btn-primary"
-				><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Back to
-				Dashboard</a
-			>
-			<button type="submit" class="btn btn-danger">Delete Account</button>
+			<div class="buttons-wrapper">
+				<a type="button" href="{% url 'dashboard' %}" class="btn btn-primary"
+					><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Back to
+					Dashboard</a
+				>
+				<button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Delete Account</button>
+			</div>
 		</form>
 	</div>
 </div>

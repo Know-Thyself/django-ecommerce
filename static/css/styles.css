@@ -5,6 +5,10 @@ body {
 	overflow-x: auto;
 }
 
+.dash-board-main {
+	overflow-x: hidden;
+}
+
 .btn {
 	border-radius: 4px !important;
 }
@@ -39,10 +43,10 @@ body {
 	margin: auto;
 }
 
-.verification {
+/* .verification {
 	height: 100vh;
 	padding-top: 2rem;
-}
+} */
 
 .card-header {
 	text-align: center;
@@ -64,16 +68,56 @@ body {
 	color: #aca79e;
 }
 
-@media only screen and (min-width: 924px) {
+
+@media only screen and (min-width: 700px) {
 	.form-wrapper {
 		width: 42rem;
 		margin: auto;
 	}
+	.custom-card {
+		width: 700px;
+		margin: auto;
+	}
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
 	.form-wrapper {
 		width: 90%;
+		margin: auto;
+	}
+	.custom-card {
+		width: 460px;
+		margin: auto;
+	}
+	.buttons-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.custom-card {
+		width: 90%;
+		margin: auto;
+	}
+	.buttons-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+}
+
+@media only screen and (max-width: 692px) {
+	.dash-board-main {
+		width: 90%;
+		margin: auto;
+	}
+}
+
+@media only screen and (max-width: 991px) and (min-width: 693px) {
+	.dash-board-main {
+		width: 70%;
 		margin: auto;
 	}
 }

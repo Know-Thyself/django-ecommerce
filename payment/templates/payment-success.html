@@ -1,7 +1,7 @@
 {% extends "base.html" %} 
 {% block content %}
 <main class="verification">
-	<section class="card custom-card">
+	<section class="card custom-card mt-5">
         <div class="card-header">
             <i class="fa fa-paypal fa-3x text-info" aria-hidden="true"></i>
             &nbsp;
@@ -12,8 +12,10 @@
 		<div class="card-body">
 			<h5 class="card-title">Thank you for shopping with us, {{ customer }}!</h5>
             <p class="card-text">Your delivery will be dispatched shortly.<br>We've sent you a payment confirmation email.<br>Please do feel free to explore more of our Ethical Products you may like.</p>
-			<a href="{% url 'store' %}" class="btn btn-primary">Back To Store</a>
-			<a href="{% url 'track-orders' %}" class="btn btn-primary">Track Your Orders</a>
+            <div class="buttons-wrapper">
+                <a href="{% url 'store' %}" class="btn btn-primary">Back To Store</a>
+                <a href="{% url 'track-orders' %}" class="btn btn-primary">Track Your Orders</a>
+            </div>
 		</div>
 	</section>
 </main>
