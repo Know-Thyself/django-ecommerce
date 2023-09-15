@@ -29,11 +29,6 @@ body {
 	height: 18rem;
 }
 
-/* .form-main,
-.main {
-	padding: 2rem 0;
-} */
-
 .form-wrapper,
 .wrapper {
 	background-color: #DADADA;
@@ -43,19 +38,12 @@ body {
 	margin: auto;
 }
 
-/* .verification {
-	height: 100vh;
-	padding-top: 2rem;
-} */
-
 .card-header {
 	text-align: center;
 }
 
 .custom-card,
 .password-reset {
-	/* width: 700px;
-	margin: auto; */
 	background-color: #aca79e;
 }
 
@@ -119,5 +107,13 @@ body {
 	.dash-board-main {
 		width: 70%;
 		margin: auto;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.cart-summary-buttons {
+		display: flex;
+		flex-direction: column-reverse;
+		gap: 1rem;
 	}
 }

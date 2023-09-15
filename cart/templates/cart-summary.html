@@ -3,27 +3,27 @@
 <main class="pt-5">
 	<div class="container">
 		<h1 class="h5">Shopping cart</h1>
-		<hr />
-		{% for item in cart %} {% with product=item.product %}
-		<br />
-		<div id="{{product.id}}" class="row mb-4 border product-item">
-			<div class="col-md-3 col-lg-2 order-md-first bg-light">
-				<img
-					class="img-fluid mx-auto inline-block align-middle"
-					width="200px"
-					alt="{{ product.title }}"
-					src="{{ product.image.url}} "
-				/>
+		{% for item in cart %} 
+		{% with product=item.product %}
+		<div id="{{product.id}}" class="row mb-4 bg-light-subtle px-0">
+			<div class="col-md-3 col-lg-2 order-md-first">
+				<div class="d-flex align-middle m-auto bg-light-subtle h-100">
+					<img
+						class="img-fluid m-auto d-block"
+						width="200px"
+						alt="{{ product.title }}"
+						src="{{ product.image.url}} "
+					/>
+				</div>
 			</div>
 			<div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
 				<a
 					href="{{ product.get_absolute_url}}"
 					class="text-info text-decoration-none"
 				>
-					<!-- Product get absolute url -->
-					<h1 class="h5 pt-2">{{ product.title }}</h1>
+					<h1 class="h5 pt-4">{{ product.title }}</h1>
 				</a>
-				<div class="border">
+				<div>
 					<div class="col border-bottom">
 						<div class="row p-3">
 							<div class="col-6">Unit price : --></div>
@@ -47,20 +47,18 @@
 							<div class="col-12">
 								<label for="select">Quantity: </label>
 								&nbsp;
-								<select id="select{{ product.id }}">
+								<select id="select{{ product.id }}" class="border">
 									<option selected>{{item.quantity}}</option>
 									<option value="">1</option>
 									<option value="">2</option>
 									<option value="">3</option>
 									<option value="">4</option>
 								</select>
-								<br />
-								<br />
 								<button
-									type="button"
-									id="update-button"
-									class="btn btn-primary btn-sm update-button"
-									onClick="updateCart('{{product.id}}')"
+								type="button"
+								id="update-button"
+								class="btn btn-primary btn-sm update-button"
+								onClick="updateCart('{{product.id}}')"
 								>
 									Update Quantity
 								</button>
@@ -78,21 +76,27 @@
 				</div>
 			</div>
 		</div>
-		{% endwith %} {% endfor %}
+		{% endwith %} 
+		{% endfor %}
 		<div class="col-12 text-end">
+			{% if cart.get_total_price > 0 %}
 			<div class="h6 fw-bold pb-5">
 				<div id="total" class="pb-4">
 					Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}
 				</div>
-				<a href="{% url 'store' %}" class="btn bg-success text-white">Continue Browsing</a>
-				<a
-					type="button"
-					class="btn btn-primary text-right"
-					href="{% url 'process-payment' %}"
-					>Proceed to Checkout &nbsp;
-					<i class="fa fa-credit-card-alt" aria-hidden="true"></i
-				></a>
-			</div>
+				<div class="cart-summary-buttons">
+					<a href="{% url 'store' %}" class="btn bg-success text-white">Continue Browsing</a>
+					<a type="button" class="btn btn-primary text-right" href="{% url 'process-payment' %}">Proceed to Checkout &nbsp;
+						<i class="fa fa-credit-card-alt" aria-hidden="true"></i
+					></a>
+				</div>
+				</div>
+			{% else %}
+				<div class="py-5">
+					<p>You haven't added anything to your shopping cart yet.</p>
+					<a href="{% url 'store' %}" class="btn btn-primary text-white">Explore Our Products</a>
+				</div>
+			{% endif %}
 		</div>
 	</div>
 </main>
