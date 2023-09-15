@@ -20,12 +20,12 @@
 		></button>
 	</div>
 	{% endfor %}
-	<section class="dash-board-wrapper">
+	<section class="dash-board-wrapper container">
 		<h3 class="py-4 text-center">{{username}}'s Dashbord!</h3>
 		<h5 class="text-center">Explore your options.</h5>
 		<br />
-		<div class="px-5 row gap-4 justify-content-center">
-			<div class="card border-light bg-dark rounded col-md-5">
+		<div class="row gap-4 row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-3 justify-content-center">
+			<div class="card px-0 border-light bg-dark rounded col">
 				<div class="card-header text-white fs-4 fw-bold">
 					Cart &nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"> </i>
 				</div>
@@ -40,30 +40,29 @@
 					</div>
 				</div>
 			</div>
-			<div class="card border-light bg-dark rounded col-md-5">
+			<div class="card px-0 border-light bg-dark rounded col">
 				<div class="card-header text-white fs-4 fw-bold">
-					Orders &nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"> </i>
+					Orders &nbsp;<i class="fa fa-paypal" aria-hidden="true"></i>
 				</div>
 				<div class="card-body">
 					<h5 class="card-title text-primary-emphasis">View your recent order</h5>
 					<p class="card-text text-primary-emphasis">Your delivery has been dispatched.</p>
 					<div class="text-center">
 						<a href="{% url 'track-orders' %}" class="btn btn-primary my-2"
-							><i class="fa fa-shopping-cart" aria-hidden="true"> </i
-							>&nbsp;View Your Recent Order</a
+							><i class="fa fa-paypal" aria-hidden="true"></i>&nbsp;View Your Recent Order</a
 						>
 					</div>
 				</div>
 			</div>
-			<div class="card border-light bg-dark rounded col-md-5">
+			<div class="card px-0 border-light bg-dark rounded col">
 				<div class="card-header text-white fs-4 fw-bold">
-					Update Your Profile &nbsp;<i
+					Your Profile &nbsp;<i
 						class="fa fa-address-card"
 						aria-hidden="true"
 					></i>
 				</div>
 				<div class="card-body">
-					<h5 class="card-title text-primary-emphasis">Review and update your profile</h5>
+					<h5 class="card-title text-primary-emphasis">Update your profile</h5>
 					<p class="card-text text-primary-emphasis">Updating your profile is easy.</p>
 					<div class="text-center">
 						<a href="{% url 'manage-profile' %}" class="btn btn-primary my-2"
@@ -73,7 +72,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="card border-light bg-dark rounded col-md-5">
+			<div class="card  px-0 border-light bg-dark rounded col">
 				<div class="card-header text-white fs-4 fw-bold">
 					Delete Your Account &nbsp;<i
 						class="fa fa-trash"
