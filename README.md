@@ -12,6 +12,6 @@ My prior knowledge of *HTML*, *CSS/Bootsrap*, *JavaScript* and *PostgreSQL* have
 Understanding The Project Structure
 -----------------------------------
 
-The main project is called **ecommerce** and can be found in the *ecommerce* directory. I've integrated four django apps in this project, namely: *store*, *accont*, *cart* and *payment*. These apps are responsible for handling different aspects of the project that are corolated to what their individual names suggest.  
+The main project is called **ecommerce** and can be found in the *ecommerce* directory. I've integrated four django apps in this project, namely: *store*, *accont*, *cart* and *payment*. These apps are responsible for handling different aspects of the project that are correlated to what their individual names suggest.  
 
 The *ecommerce* directory contains important settings, configurations and urls/routes/paths or entry points of the apps to enable us run all of them as one web application smoothly. Having at *settings.py* and *urls.py* in the *ecommerce* directory could give you a better idea as to how the project is structured.
