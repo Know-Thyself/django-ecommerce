@@ -21,7 +21,7 @@ The _ecommerce_ directory contains important settings, configurations and urls/r
 Feel free to click this link or the image at the top of this page to visit the live website [Sustainability E-commerce][Sustainability E-commerce website live link].
 
 
-Please bear in mind that loading the site initially might be slow as it is deployed using free tiers of render web service and elephantSQL database. However, when the initial loading is complete, everything runs efficiently and swiftly.
+Please bear in mind that loading the site initially might be slow as it is deployed using free tiers of render web service and elephantSQL database. However, once the initial loading is complete, everything runs efficiently and swiftly.
 
 
 ## Installing Project Requirements and Running the App Locally
@@ -37,7 +37,38 @@ pip install -r requirements.txt
 
 ### Running the app locally
 
-This can be a bit tricky...
+> ### Step 1. 
+> Running the app locally can be a bit tricky as it involves creating and loading your own *environment variables* consisting of your credentials and secret keys.
+> #### The essential **environment variables** are:
+> + DATABASE_URL
+> + CART_SESSION_KEY
+> + SECRET_KEY
+> + EMAIL_BACKEND
+> + EMAIL_HOST
+> + EMAIL_HOST_USER
+> + EMAIL_HOST_PASSWORD
+> + EMAIL_PORT
+> + ALLOWED_HOSTS
+> + SANDBOX_CLIENT_ID
+> + PYTHON_VERSION
+> + DEBUG
+
+> Of course, you can rename these *environment variables* however you want.
+
+>### Step 2.
+> Run the following command to migrate database models that are defined in each app's ***models.py*** files and are prepared to be migrated from ***migrations*** directories of ***account***, ***cart***, ***payment*** and ***store*** django apps to your local or remote database. 
+```
+python manage.py migrate
+```
+
+> ### Finally
+> Once the data migration is successful, You can simply run the following command and follow your local host link to see the web app in action.
+```
+python manage.py runserver
+```
+
+
+
 
 
 [Sustainability E-commerce website live link]: https://sustainability-ecommerce.onrender.com/
