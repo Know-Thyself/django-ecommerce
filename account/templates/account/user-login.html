@@ -1,23 +1,23 @@
 {% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
 <main class="form-main py-5">
-	<section class="form-wrapper px-4 rounded bg-light">
-		<h4 class="py-4 text-center text-primary">Login to your account</h4>
+	<section class="form-wrapper px-4 rounded bg-body-secondary">
+		<h5 class="py-4 text-center text-black-50 text-uppercase">Login to your account</h5>
 		<form method="POST" autocomplete="off" autocapitalize="off" novalidate class="border-0">
 			{% csrf_token %} 
             {{ form|as_crispy_errors }}
             {{ form.username|as_crispy_field }}
             {{ form.password|as_crispy_field }}
             <!-- {{ form.non_field_errors }} -->
-			<button type="submit" class="btn btn-primary w-100 fs-5">
+			<button type="submit" class="btn btn-primary w-100 fs-5 border-0">
 				Login&nbsp;&nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i>
 			</button>
             <div class="py-4 text-black-50">
                 Forgotten your password ?
-                <a class="text-primary" href="{% url 'reset_password' %}">Recover your password</a>
+                <a class="link-info" href="{% url 'reset_password' %}">Recover your password</a>
             </div>
             <div class="pb-4 text-black-50">
                 Don't have an account ?
-                <a class="text-primary" href="{% url 'register' %}">Register instead</a>
+                <a class="link-info" href="{% url 'register' %}">Register instead</a>
             </div>
 		</form>
 	</section>

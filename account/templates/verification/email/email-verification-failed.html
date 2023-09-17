@@ -1,16 +1,16 @@
 {% extends "base.html" %} {% block content %}
 <main class="verification">
-	<section class="card custom-card mt-5">
-		<div class="card-header">
-			<i class="fa fa-times fa-3x text-danger"></i>
+	<section class="card custom-card mt-5 border-0">
+		<div class="card-header text-light border-0 bg-danger">
+			<i class="fa fa-times fa-3x text-light"></i>
 			<br />
-			<h5><strong>Your account is not verified!</strong></h5>
+			<h5>Your account is not verified!</h5>
 		</div>
-		<div class="card-body">
-			<h5 class="card-title">
+		<div class="card-body border-0">
+			<p class="card-text">
 				Please try to register again with your correct credentials.
-			</h5>
-			<a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+			</p>
+			<a href="{% url 'register' %}" class="btn btn-primary border-0">Register</a>
 		</div>
 	</section>
 </main>

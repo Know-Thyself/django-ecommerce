@@ -32,7 +32,7 @@ urlpatterns = [
     # Reset password
     # 1. Submit email form
     path(
-        'reset_password',
+        'password-reset',
         auth_views.PasswordResetView.as_view(
             template_name='verification/password/password-reset.html'
         ),
@@ -40,7 +40,7 @@ urlpatterns = [
     ),
     # 2. Sending password reset email
     path(
-        'reset_password_sent',
+        'password-reset-sent',
         auth_views.PasswordResetDoneView.as_view(
             template_name='verification/password/password-reset-sent.html'
         ),
@@ -56,7 +56,7 @@ urlpatterns = [
     ),
     # 4. Password reset success message
     path(
-        'reset_password_complete',
+        'password-reset-complete',
         auth_views.PasswordResetCompleteView.as_view(
             template_name='verification/password/password-reset-complete.html'
         ),

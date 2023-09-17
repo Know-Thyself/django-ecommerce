@@ -2,9 +2,8 @@
 <main class="form-main py-4 container">
 	<section class="form-wrapper container-md w-75 bg-light">
 		<div class="text-center">
-			<h4 class="p-4 text-secondary-emphasis">Registration Form</h4>
+			<h4 class="p-4 text-black-50 text-uppercase">Registration Form</h4>
 		</div>
-		<!-- {% crispy form %} -->
 		<form
 			method="post"
 			id="registration-form"
@@ -19,12 +18,12 @@
             {{ form.email|as_crispy_field }} 
             {{ form.password1|as_crispy_field }} 
             {{form.password2|as_crispy_field }}
-			<button type="submit" class="btn btn-primary w-100 fs-5">
+			<button type="submit" class="btn btn-primary w-100 fs-5 border-0">
 				Create Account
 			</button>
 			<div class="py-4 text-black-50">
 				Already have an account ?&nbsp;<a href="{% url 'user-login' %}"
-					class="text-primary">Login instead</a
+					class="link-info">Login instead</a
 				>
 			</div>
 		</form>
