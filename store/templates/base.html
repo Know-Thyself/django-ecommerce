@@ -8,7 +8,7 @@
 		<!-- Bootswatch -->
 		<link
 			rel="stylesheet"
-			href="https://bootswatch.com/5/lux/bootstrap.min.css"
+			href="https://bootswatch.com/5/slate/bootstrap.min.css"
 		/>
 		<link
 			rel="stylesheet"
@@ -17,10 +17,10 @@
 		<link rel="shortcut icon" type="image/png" href="{% static 'media/images/favicon.png' %}" >
 		<title>Sustainability E-Commerce</title>
 	</head>
-	<body>
-		<nav class="navbar navbar-expand-lg bg-primary">
+	<body class="bg-body-tertiary">
+		<nav class="navbar navbar-expand-lg bg-primary py-3 border-0" data-bs-theme="dark">
 			<div class="container-fluid"> 
-				<a class="navbar-brand main-heading text-white" href="{% url 'store' %}">
+				<a class="navbar-brand" href="{% url 'store' %}">
 					&nbsp; &nbsp; Sustainable Brands
 				</a>
 				<a
@@ -40,7 +40,7 @@
 					</span>
 				</a>
 				<button
-					class="navbar-toggler border-0"
+					class="navbar-toggler"
 					type="button"
 					data-toggle="collapse"
 					data-target="#navbarNavDropdown"
@@ -58,14 +58,18 @@
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item dropdown">
 							<a
-								class="nav-link dropdown-toggle text-white"
+								class="nav-link dropdown-toggle {% if category.name %} active {% endif%}"
 								href="#"
 								id="navbarDropdown"
 								role="button"
 								data-bs-toggle="dropdown"
 								aria-expanded="false"
 							>
-								Categories
+								{% if category.name %} 
+									{{category.name}} 
+								{% else %}
+									Categories
+								{% endif %}
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li>
@@ -81,11 +85,11 @@
 							</ul>
 						</li>
 					</ul>
-					<ul class="navbar-nav ms-auto">
+					<ul class="navbar-nav ms-auto border-0">
 						{% if request.user.is_authenticated %}
 						<li class="nav-item">
 							<a
-								class="btn btn-alert navbar-btn text-white"
+								class="btn nav-link {% if request.resolver_match.url_name == 'dashboard' %} active {% endif%}"
 								type="button"
 								href="{% url 'dashboard' %}"
 								>Dashboard</a
@@ -93,7 +97,7 @@
 						</li>
 						<li class="nav-item">
 							<a
-								class="btn btn-alert navbar-btn text-white"
+								class="btn nav-link {% if request.resolver_match.url_name == 'user-logout' %} active {% endif%}"
 								type="button"
 								href="{% url 'user-logout' %}"
 								>Logout</a
@@ -102,7 +106,7 @@
 						{% else %}
 						<li class="nav-item">
 							<a
-								class="btn btn-alert navbar-btn text-white"
+								class="btn nav-link {% if request.resolver_match.url_name == 'register' %} active {% endif%}"
 								type="button"
 								href="{% url 'register' %}"
 							>
@@ -111,7 +115,7 @@
 						</li>
 						<li class="nav-item">
 							<a
-								class="btn btn-alert navbar-btn text-white"
+								class="btn nav-link {% if request.resolver_match.url_name == 'user-login' %} active {% endif%}"
 								type="button"
 								href="{% url 'user-login' %}"
 								>Login</a
@@ -123,7 +127,7 @@
 							type="button"
 							role="button"
 							href="{% url 'cart-summary' %}"
-							class="btn btn-info ms-auto collapse navbar-collapse"
+							class="btn btn-info ms-auto collapse navbar-collapse me-5"
 							id="navbarCollapse"
 							>
 								<i class="fa fa-shopping-cart" aria-hidden="true"> </i>

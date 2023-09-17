@@ -2,12 +2,12 @@
 
 <main class="pt-5">
 	<div class="container">
-		<h1 class="h5">Shopping cart</h1>
+		<h1 class="h5 text-secondary">Shopping cart</h1>
 		{% for item in cart %} 
 		{% with product=item.product %}
-		<div id="{{product.id}}" class="row mb-4 bg-light-subtle px-0">
+		<div id="{{product.id}}" class="row mb-4 bg-secondary-subtle px-0">
 			<div class="col-md-3 col-lg-2 order-md-first">
-				<div class="d-flex align-middle m-auto bg-light-subtle h-100">
+				<div class="d-flex align-middle m-auto bg-secondary-subtle h-100">
 					<img
 						class="img-fluid m-auto d-block"
 						width="200px"
@@ -19,16 +19,16 @@
 			<div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
 				<a
 					href="{{ product.get_absolute_url}}"
-					class="text-info text-decoration-none"
+					class="text-info-emphasis text-decoration-none"
 				>
 					<h1 class="h5 pt-4">{{ product.title }}</h1>
 				</a>
-				<div>
+				<div class="text-black-50">
 					<div class="col border-bottom">
 						<div class="row p-3">
 							<div class="col-6">Unit price : --></div>
 							<div class="col-6 text-end">
-								<span class="h6 fw-bold"> {{ product.price }} </span>
+								<span class="h6"> {{ product.price }} </span>
 							</div>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
 						<div class="row p-3">
 							<div class="col-6">Sub total : --></div>
 							<div class="col-6 text-end">
-								<span id="sub-total-{{ product.id }}" class="h6 fw-bold">
+								<span id="sub-total-{{ product.id }}" class="h6">
 									{{ item.total }}
 								</span>
 							</div>
@@ -57,7 +57,7 @@
 								<button
 								type="button"
 								id="update-button"
-								class="btn btn-primary btn-sm update-button"
+								class="btn btn-primary btn-sm update-button border-0"
 								onClick="updateCart('{{product.id}}')"
 								>
 									Update Quantity
@@ -65,7 +65,7 @@
 								&nbsp;
 								<button
 									data-index="{{ product.id }}"
-									class="btn btn-danger btn-sm delete-button"
+									class="btn btn-danger btn-sm delete-button border-0"
 									onClick="removeItem('{{product.id}}')"
 								>
 									Remove From Cart
@@ -80,13 +80,13 @@
 		{% endfor %}
 		<div class="col-12 text-end">
 			{% if cart.get_total_price > 0 %}
-			<div class="h6 fw-bold pb-5">
+			<div class="h6 pb-5 text-black-50">
 				<div id="total" class="pb-4">
 					Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}
 				</div>
 				<div class="cart-summary-buttons">
-					<a href="{% url 'store' %}" class="btn bg-success text-white">Continue Browsing</a>
-					<a type="button" class="btn btn-primary text-right" href="{% url 'process-payment' %}">Proceed to Checkout &nbsp;
+					<a href="{% url 'store' %}" class="btn btn-primary border-0">Continue Browsing</a>
+					<a type="button" class="btn btn-info text-right border-0" href="{% url 'process-payment' %}">Proceed to Checkout &nbsp;
 						<i class="fa fa-credit-card-alt" aria-hidden="true"></i
 					></a>
 				</div>
@@ -94,7 +94,7 @@
 			{% else %}
 				<div class="py-5">
 					<p>You haven't added anything to your shopping cart yet.</p>
-					<a href="{% url 'store' %}" class="btn btn-primary text-white">Explore Our Products</a>
+					<a href="{% url 'store' %}" class="btn btn-primary border-0">Explore Our Products</a>
 				</div>
 			{% endif %}
 		</div>
