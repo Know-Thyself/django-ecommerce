@@ -5,47 +5,41 @@ body {
 	overflow-x: auto;
 }
 
-.dash-board-main {
-	overflow-x: hidden;
-}
-
 .btn {
 	border-radius: 4px !important;
 }
-
-/* TODO - color scheme */
-/* .card-body {
-	background-color: #9b6c6c;
-	background-color: #D3D3D3;
-	background-color: #DBD7D2;
-	background-color: #D1CBC1; 
-} */
 
 .col a {
 	text-decoration: none;
 }
 
-/* .product__image {
-	height: 18rem;
-} */
-
-.form-wrapper,
+/* .form-wrapper,
 .wrapper {
 	background-color: #DADADA;
-}
+} */
+
 .form-wrapper {
 	width: 70%;
 	margin: auto;
+}
+
+#id_username,
+#id_password,
+#id_email,
+#id_password1,
+#id_password2 {
+	border: none;
+	border-width: 0;
 }
 
 .card-header {
 	text-align: center;
 }
 
-.custom-card,
+/* .custom-card,
 .password-reset {
 	background-color: #aca79e;
-}
+} */
 
 .paypal-buttons {
 	width: 50%;
@@ -55,7 +49,6 @@ body {
 .fa-bars {
 	color: #aca79e;
 }
-
 
 @media only screen and (min-width: 700px) {
 	.form-wrapper {
