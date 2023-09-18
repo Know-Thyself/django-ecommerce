@@ -28,9 +28,10 @@ const addToCart = id => {
 			'X-CSRFToken': getCookie('csrftoken'),
 		},
 		success: res => {
-			document.getElementById('cart-quantity').innerText = res.quantity
+			document.getElementById('cart-quantity').textContent = res.quantity
+			document.getElementById('cart-quantity-mobile').textContent = res.quantity
 		},
-		error: (err) => {
+		error: err => {
 			console.log(err)
 		},
 	})
@@ -46,6 +47,7 @@ const removeItem = id => {
 		success: res => {
 			document.getElementById(id).innerText = ''
 			document.getElementById('cart-quantity').innerText = res.quantity
+			document.getElementById('cart-quantity-mobile').innerText = res.quantity
 			document.getElementById('total').innerText = `Total price: £${res.total}`
 		},
 		error: error => {
