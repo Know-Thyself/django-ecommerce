@@ -4,7 +4,7 @@
 
 I've built this **Sustainability E-commerce** Full Stack Web Application as part of my learning journey and practicing **Python** and **Django Web Framework**.
 
-Building this project has thought me a lot and introduced me to a variety of new technologies which I will list out in this document.
+Building this project has thought me a lot of new skills and introduced me to a variety of new technologies.
 
 Although I am new to Django, I am very much familiar with Web Development in languages I am much more proficient at such as _JavaScript_, _React.js_, _Next.js_, _Node.js_, _HTML_ and _CSS_ along with related _Frameworks_ and _Libraries_ as well as _PostgreSQL_.
 
