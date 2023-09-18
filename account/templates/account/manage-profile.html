@@ -1,15 +1,15 @@
 {% extends "base.html" %} 
 {% load crispy_forms_tags %}
 {% block content %}
-<main class="form-main py-4">
-    <section class="form-wrapper p-4"> 
-        <h3 class="py-4">Update Your Profile</h3>
+<main class="form-main py-5">
+    <section class="form-wrapper px-5 pb-4 pt-2 bg-body rounded-2"> 
+        <h3 class="text-center">Update Your Profile</h3>
         <form method="POST" class="blueForms" autocomplete="off" autocapitalize="off" novalidate>
             {% csrf_token %}
             {{ form|as_crispy_errors }}
             {{ user.username|as_crispy_field }} 
             {{ user.email|as_crispy_field }}
-            <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+            <button type="submit" class="btn custom-bg w-100 text-white">Update Profile</button>
         </form>
     </section>
 </main>
