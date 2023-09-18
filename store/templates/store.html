@@ -18,8 +18,8 @@
 	<section class="pt-3 text-center">
 		<div class="row">
 			<div class="mx-auto">
-				<h4 class="text-secondary">Sustainability at it's finest!</h4>
-				<p class="text-primary-muted">Browse our extensive collection of Sustainable Products.</p>
+				<h4 class="text-primary">Sustainability at it's finest!</h4>
+				<p class="text-secondary">Browse our extensive collection of Sustainable Products.</p>
 				{% if not request.user.is_authenticated %}
 				<a href="{% url 'register' %}" class="btn btn-primary my-2">
 					<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Create an
@@ -30,7 +30,7 @@
 		</div>
 	</section>
 	<section>
-		<h4 class="text-secondary">All Products</h4>
+		<h4 class="text-primary">All Products</h4>
 		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
 			{% for product in products %}
 			<div class="col pb-4">
@@ -42,11 +42,11 @@
 							alt="{{product.title}}"
 							/>
 						<div class="card-body bg-light">
-							<h6 class="card-title text-primary">{{product.title}}</h6>
-							<p class="card-text text-primary">{{product.description|truncatewords:8}}</p>
+							<h6 class="card-title text-primary text-info-emphasis">{{product.title}}</h6>
+							<p class="card-text text-secondary">{{product.description|truncatewords:8}}</p>
 						</div>
 						<div class="card-footer border-0">
-      						<small class="text-body-emphasis badge bg-light rounded-pill">Price: {{product.price}}</small>
+      						<small class="text-info-emphasis badge bg-light rounded-pill">Price: {{product.price}}</small>
     					</div>
 					</div>
 				</a>

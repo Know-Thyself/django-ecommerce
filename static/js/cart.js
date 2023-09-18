@@ -30,7 +30,7 @@ const addToCart = id => {
 		success: res => {
 			document.getElementById('cart-quantity').innerText = res.quantity
 		},
-		error: (xhr, errmsg, err) => {
+		error: (err) => {
 			console.log(err)
 		},
 	})

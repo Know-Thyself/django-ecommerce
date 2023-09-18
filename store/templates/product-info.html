@@ -1,24 +1,22 @@
 {% extends "base.html" %} {% block content %}
 <div class="container">
 	<main class="pt-5">
-		<div class="row">
-			<div class="col-md-5 col-lg-5 col-xl-5 order-md-first p-0 m-0">
-				<div class="bg-light-subtle h-100">
-					<img
-						class="img-fluid d-block"
-						alt="{{ product.title}}"
-						src="{{ product.image.url}}"
-					/>
-				</div>
+		<div class="row bg-light">
+			<div class="col-md-4 col-lg-4 col-xl-4 order-md-first h-100 p-0">
+				<img
+					class="img-fluid d-block bg-danger"
+					alt="{{ product.title}}"
+					src="{{ product.image.url}}"
+				/>
 			</div>
-			<div class="col-md-7 col-lg-7 pt-3 bg-secondary-subtle">
+			<div class="col-md-8 col-lg-8 col-xl-8 h-100 p-3">
 				<div class="border-bottom border-dark-subtle">
-					<h1 class="h4 text-primary">{{ product.title}}</h1>
-					<strong>{{ product.brand }}</strong>
+					<h4 class="text-primary">{{ product.title}}</h4>
+					<strong class="text-secondary">{{ product.brand }}</strong>
 				</div>
-				<p class="pt-3 text-black-50">{{ product.description }}</p>
-				<div class="border border-light-subtle bg-light-subtle px-3 text-black-50">
-					<div class="col border-bottom border-light-subtle">
+				<p class="pt-3 text-secondary">{{ product.description }}</p>
+				<div class="border border-dark-subtle px-3 text-black-50">
+					<div class="col border-bottom border-dark-subtle">
 						<div class="row py-3">
 							<div class="col-6">Price</div>
 							<div class="col-6 text-end">
@@ -31,7 +29,7 @@
 							<div class="col-6">
 								<label for="select">Quantity: </label>
 								&nbsp;
-								<select id="select">
+								<select id="select" class="border-0 bg-primary-subtle">
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -49,10 +47,10 @@
 						</div>
 					</div>
 				</div>
-				<div class="col text-end pt-4">
-					<a href="{% url 'store' %}" class="btn btn-md btn-primary border-0">Continue Browsing</a>
-				</div>
 			</div>
+		</div>
+		<div class="text-end pt-4">
+			<a href="{% url 'store' %}" class="btn btn-md btn-primary border-0">Continue Browsing</a>
 		</div>
 	</main>
 	<br />

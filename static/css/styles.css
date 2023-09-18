@@ -2,7 +2,7 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	overflow-x: auto;
+	overflow-x: hidden;
 }
 
 .btn {
@@ -12,11 +12,6 @@ body {
 .col a {
 	text-decoration: none;
 }
-
-/* .form-wrapper,
-.wrapper {
-	background-color: #DADADA;
-} */
 
 .form-wrapper {
 	width: 70%;
@@ -35,11 +30,6 @@ body {
 .card-header {
 	text-align: center;
 }
-
-/* .custom-card,
-.password-reset {
-	background-color: #aca79e;
-} */
 
 .paypal-buttons {
 	width: 50%;
