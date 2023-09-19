@@ -5,10 +5,6 @@ body {
 	overflow-x: hidden;
 }
 
-/* .btn {
-	border-radius: 4px !important;
-} */
-
 .col a {
 	text-decoration: none;
 }
@@ -17,21 +13,6 @@ body {
 	width: 70%;
 	margin: auto;
 }
-
-/* #id_username,
-#id_password,
-#id_email,
-#id_password1,
-#id_password2,
-#id_full_name,
-#id_address1,
-#id_address2,
-#id_city,
-#id_state,
-#id_zipcode {
-	border: none;
-	border-width: 0;
-} */
 
 .form-control {
 	border: none !important;
@@ -51,8 +32,6 @@ body {
 }
 
 .custom-bg {
-	background-color: rgb(60, 81, 105) !important;
-	background-color: #80669d !important;
 	background-color: #5783db !important;
 }
 

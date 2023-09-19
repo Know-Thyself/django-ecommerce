@@ -1,27 +1,7 @@
 {% extends "base.html" %} {% block content %}
-<main class="pb-5 px-0 dash-board-main bg-body-secondary">
-	{% for message in messages %}
-	<div id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
-		<svg
-			class="bi flex-shrink-0 me-2"
-			width="24"
-			height="24"
-			role="img"
-			aria-label="Success:"
-		>
-			<use xlink:href="#check-circle-fill" />
-		</svg>
-		<strong>{{ message }}</strong>
-		<button
-			type="button"
-			class="btn-close"
-			data-bs-dismiss="alert"
-			aria-label="Close"
-		></button>
-	</div>
-	{% endfor %}
+<main class="pb-5 px-0 dash-board-main">
 	<section class="dash-board-wrapper">
-		<h4 class="py-4 text-center text-black-50">{{username}}'s Dashbord!</h4>
+		<h4 class="text-black-50 p-4 welcome-text text-center">👋🏽{{username}}, welcome to your Dashboard!</h4>
 		<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 justify-content-center gap-4">
 			<div class="card px-0 border-0 rounded col">
 				<div class="card-header fs-4 border-0 text-white custom-bg">
@@ -39,7 +19,7 @@
 				</div>
 			</div>
 			<div class="card px-0 border-0 rounded col">
-				<div class="card-header fs-4 border-0 text-light bg-success">
+				<div class="card-header fs-4 border-0 text-white bg-success">
 					Orders &nbsp;<i class="fa fa-paypal" aria-hidden="true"></i>
 				</div>
 				<div class="card-body">
@@ -71,7 +51,7 @@
 				</div>
 			</div>
 			<div class="card  px-0 border-0 rounded col">
-				<div class="card-header fs-4 border-0 text-light bg-danger">
+				<div class="card-header fs-4 border-0 text-white bg-danger">
 					Delete Your Account &nbsp;<i
 						class="fa fa-trash"
 						aria-hidden="true"
@@ -88,6 +68,9 @@
 					</div>
 				</div>
 			</div>			
+		</div>
+		<div class="text-center mt-4">
+			<a href="{% url 'store' %}" class="btn custom-bg border-0 text-white fs-5">Head To Store</a>
 		</div>
 	</section>
 </main>
