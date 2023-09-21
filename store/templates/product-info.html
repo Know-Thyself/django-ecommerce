@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <div class="container">
 	<main class="pt-5">
-		<div class="row bg-body-tertiary">
+		<div class="row bg-body">
 			<div class="col-md-4 col-lg-4 col-xl-4 order-md-first h-100 p-0">
 				<img
 					class="img-fluid d-block"
@@ -11,11 +11,11 @@
 			</div>
 			<div class="col-md-8 col-lg-8 col-xl-8 h-100 p-3">
 				<div class="border-bottom border-dark-subtle">
-					<h4 class="text-primary">{{ product.title}}</h4>
-					<strong class="text-secondary">{{ product.brand }}</strong>
+					<h4 class="text-info">{{ product.title}}</h4>
+					<strong class="">{{ product.brand }}</strong>
 				</div>
-				<p class="pt-3 text-secondary">{{ product.description }}</p>
-				<div class="border border-dark-subtle px-3 text-primary">
+				<p class="pt-3 text-light">{{ product.description }}</p>
+				<div class="border border-dark-subtle px-3 text-light">
 					<div class="col border-bottom border-dark-subtle">
 						<div class="row py-3">
 							<div class="col-6">Price</div>

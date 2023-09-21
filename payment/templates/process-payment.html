@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
 <main class="form-main py-5">
 	<section class="form-wrapper rounded-2 px-5 border-0 bg-body">
-		<h4 class="py-4 text-center">Edit or Enter Your Shipping Address</h4>
+		<h4 class="py-4 text-center text-light">Edit or Enter Your Shipping Address</h4>
 		<form method="POST" autocomplete="off" autocapitalize="off" novalidate>
 			{% csrf_token %} 
 			{{ form|as_crispy_errors }} 

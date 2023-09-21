@@ -1,11 +1,11 @@
 {% extends "base.html" %} {% block content %}
 
 <main class="mt-4">
-	<div class="container">
-		<h1 class="h5 text-secondary mb-4">Shopping cart</h1>
+	<div class="container w-75">
+		<h1 class="h5 mb-4 text-primary">Shopping cart</h1>
 		{% for item in cart %} 
 		{% with product=item.product %}
-		<div id="{{product.id}}" class="row mb-4 bg-body-tertiary">
+		<div id="{{product.id}}" class="row mb-4 bg-body">
 			<div class="col-md-3 col-lg-2 order-md-first p-0">
 				<div class="d-flex align-middle bg-secondary-subtle h-100">
 					<img
@@ -20,10 +20,10 @@
 					href="{{ product.get_absolute_url}}"
 					class="text-info-emphasis text-decoration-none"
 				>
-					<h1 class="h5 pt-4">{{ product.title }}</h1>
+					<h5 class="pt-4 text-info">{{ product.title }}</h5>
 				</a>
-				<div class="text-primary">
-					<div class="col border-bottom">
+				<div class="text-light">
+					<div class="col border-bottom border-secondary">
 						<div class="row p-2">
 							<div class="col-6">Unit price : --></div>
 							<div class="col-6 text-end">
@@ -31,7 +31,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col border-bottom">
+					<div class="col border-bottom border-secondary">
 						<div class="row p-2">
 							<div class="col-6">Sub total : --></div>
 							<div class="col-6 text-end">
@@ -93,7 +93,7 @@
 				</div>
 			{% else %}
 				<div class="py-5">
-					<p>You haven't added anything to your shopping cart yet.</p>
+					<p class="text-secondary">You haven't added anything to your shopping cart yet.</p>
 					<a href="{% url 'store' %}" class="btn btn-primary border-0">Explore Our Products</a>
 				</div>
 			{% endif %}

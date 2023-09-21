@@ -1,6 +1,6 @@
 # Django E-commerce
 
-[![Screenshot of the storefront of the website.](/static/media/images/sustainability-ecommerce-screenshot.png)][Sustainability E-commerce website live link]
+[![Screenshot of the storefront of the website.](/static/media/images/site-screenshot.png)][Sustainability E-commerce website live link]
 
 I've built this **Sustainability E-commerce** Full Stack Web Application as part of my learning journey and practicing **Python** and **Django Web Framework**.
 
