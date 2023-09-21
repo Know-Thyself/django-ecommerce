@@ -3,11 +3,10 @@
 <main class="mt-4">
 	<div class="container w-75">
 		<h1 class="h5 mb-4 text-primary">Shopping cart</h1>
-		{% for item in cart %} 
-		{% with product=item.product %}
+		{% for item in cart %} {% with product=item.product %}
 		<div id="{{product.id}}" class="row mb-4 bg-body">
-			<div class="col-md-3 col-lg-2 order-md-first p-0">
-				<div class="d-flex align-middle bg-secondary-subtle h-100">
+			<div class="col-md-3 col-lg-2 col-xl-3 order-md-first p-0">
+				<div class="d-flex align-middle bg-body-tertiary h-100">
 					<img
 						class="img-fluid d-block"
 						alt="{{ product.title }}"
@@ -15,16 +14,21 @@
 					/>
 				</div>
 			</div>
-			<div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
+			<div class="col-md-9 col-lg-10 col-xl-9 py-3 px-4">
 				<a
 					href="{{ product.get_absolute_url}}"
-					class="text-info-emphasis text-decoration-none"
+					class="text-decoration-none"
 				>
-					<h5 class="pt-4 text-info">{{ product.title }}</h5>
+					<h5 class="text-info">
+						{{ product.title }}
+						<span class="text-secondary">|</span>
+						<span class="h6 text-light">{{ product.brand }}</span>
+					</h5>
 				</a>
+				<div class="col">{{ product.description }}</div>
 				<div class="text-light">
 					<div class="col border-bottom border-secondary">
-						<div class="row p-2">
+						<div class="row py-2">
 							<div class="col-6">Unit price : --></div>
 							<div class="col-6 text-end">
 								<span>{{ product.price }}</span>
@@ -32,40 +36,34 @@
 						</div>
 					</div>
 					<div class="col border-bottom border-secondary">
-						<div class="row p-2">
+						<div class="row py-2">
 							<div class="col-6">Sub total : --></div>
 							<div class="col-6 text-end">
-								<span id="sub-total-{{ product.id }}">
-									{{ item.total }}
-								</span>
+								<span id="sub-total-{{ product.id }}"> {{ item.total }} </span>
 							</div>
 						</div>
 					</div>
 					<div class="col">
-						<div class="row p-2">
+						<div class="row pt-3">
 							<div class="col-6 update-cart">
 								<label for="select">Quantity: </label>
 								&nbsp;
-								<select id="select{{ product.id }}" class="border">
+								<select
+									id="select{{ product.id }}"
+									class="border"
+									onchange="updateCart('{{product.id}}')"
+								>
 									<option selected>{{item.quantity}}</option>
 									<option value="">1</option>
 									<option value="">2</option>
 									<option value="">3</option>
 									<option value="">4</option>
 								</select>
-								<button
-								type="button"
-								id="update-button"
-								class="btn btn-primary btn-sm update-button border-0"
-								onClick="updateCart('{{product.id}}')"
-								>
-									Update Quantity
-								</button>
 							</div>
 							<div class="col-6 text-end">
 								<button
 									data-index="{{ product.id }}"
-									class="btn btn-danger btn-sm delete-button border-0"
+									class="btn btn-danger delete-button border-0"
 									onClick="removeItem('{{product.id}}')"
 								>
 									Remove From Cart
@@ -76,8 +74,7 @@
 				</div>
 			</div>
 		</div>
-		{% endwith %} 
-		{% endfor %}
+		{% endwith %} {% endfor %}
 		<div class="col-12 text-end">
 			{% if cart.get_total_price > 0 %}
 			<div class="pb-5 text-primary">
@@ -85,17 +82,27 @@
 					<strong>Total price:&nbsp;&nbsp; £{{ cart.get_total_price }}</strong>
 				</div>
 				<div class="cart-summary-buttons">
-					<a href="{% url 'store' %}" class="btn btn-primary border-0">Continue Browsing</a>
-					<a type="button" class="btn text-right border-0 custom-bg text-white" href="{% url 'process-payment' %}">Proceed to Checkout &nbsp;
+					<a href="{% url 'store' %}" class="btn btn-primary border-0"
+						>Continue Browsing</a
+					>
+					<a
+						type="button"
+						class="btn text-right border-0 custom-bg text-white"
+						href="{% url 'process-payment' %}"
+						>Proceed to Checkout &nbsp;
 						<i class="fa fa-credit-card-alt" aria-hidden="true"></i
 					></a>
 				</div>
-				</div>
+			</div>
 			{% else %}
-				<div class="py-5">
-					<p class="text-secondary">You haven't added anything to your shopping cart yet.</p>
-					<a href="{% url 'store' %}" class="btn btn-primary border-0">Explore Our Products</a>
-				</div>
+			<div class="py-5">
+				<p class="text-secondary">
+					You haven't added anything to your shopping cart yet.
+				</p>
+				<a href="{% url 'store' %}" class="btn btn-primary border-0"
+					>Explore Our Products</a
+				>
+			</div>
 			{% endif %}
 		</div>
 	</div>
