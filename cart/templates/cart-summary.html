@@ -4,17 +4,15 @@
 	<div class="container w-75">
 		<h1 class="h5 mb-4 text-primary">Shopping cart</h1>
 		{% for item in cart %} {% with product=item.product %}
-		<div id="{{product.id}}" class="row mb-4 bg-body">
-			<div class="col-md-3 col-lg-2 col-xl-3 order-md-first p-0">
-				<div class="d-flex align-middle bg-body-tertiary h-100">
-					<img
-						class="img-fluid d-block"
-						alt="{{ product.title }}"
-						src="{{ product.image.url}} "
-					/>
-				</div>
+		<div id="{{product.id}}" class="row mb-4 bg-dark-subtle p-0">
+			<div class="col-md-3 col-lg-2 col-xl-3 order-md-first align-self-center p-0">
+				<img
+					class="img-fluid"
+					alt="{{ product.title }}"
+					src="{{ product.image.url}} "
+				/>
 			</div>
-			<div class="col-md-9 col-lg-10 col-xl-9 py-3 px-4">
+			<div class="col-md-9 col-lg-10 col-xl-9 py-2 px-4 bg-body">
 				<a
 					href="{{ product.get_absolute_url}}"
 					class="text-decoration-none"
@@ -66,7 +64,7 @@
 									class="btn btn-danger delete-button border-0"
 									onClick="removeItem('{{product.id}}')"
 								>
-									Remove From Cart
+									Remove Item
 								</button>
 							</div>
 						</div>
