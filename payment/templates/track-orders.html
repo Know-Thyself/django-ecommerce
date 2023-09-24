@@ -1,30 +1,47 @@
-{% extends "base.html" %} 
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <main class="container order p-4">
-    <div class="card-header">
-        <h5><strong>My Orders</strong></h5>
-    </div>
-    {% for item in ordered_items %}
-        <section class="card custom-card">
-            <div class="card-header">
-                <h5><strong>{{ item.order }}</strong></h5>
-                <h5 class="card-title">{{ item.product }}</h5>
-            </div>
-            <div class="card-body">
-                <p class="card-text">Unit price: ${{ item.unit_price }}</p>
-                <p class="card-text">Quantity: {{ item.quantity }}</p>
-                <!-- <p class="card-text">{{ item.price }}</p> -->
-                <p class="card-text">{{ item.price }}</p>
-                <h5 class="card-title">Delivery Sent To: {{ shipping_address.full_name }}</h5>
-                <p class="card-text">First line address: {{ shipping_address.address1 }}</p>
-                <p class="card-text">Second line address: {{ shipping_address.address2 }}</p>
-                <p class="card-text">City: {{ shipping_address.city }}</p>
-                <p class="card-text">Order Date: {{ order.order_date }}</p>
-                <p class="card-text">Total amout paid: ${{ order.amount_paid }}</p>
-
-                <a href="{% url 'store' %}" class="btn btn-primary">Back To Store</a>
-            </div>
-        </section>
-    {% endfor %}
+	<h5 class="text-black-50"><strong>My Recent Order</strong></h5>
+	{% for item in ordered_items %}
+	<section class="card custom-card border-0">
+		<div class="card-header border-0 text-white">
+			<h5><strong>{{ item.order }}</strong></h5>
+			<h5 class="card-title">{{ item.product }}</h5>
+		</div>
+		<div class="card-body">
+			<h5 class="card-title">
+				<span class="text-light">Delivery sent to: </span>
+                {{ shipping_address.full_name }}
+			</h5>
+			<p class="card-text">
+				<span class="text-light">Ordered item: </span>{{ item.product }}
+			</p>
+			<p class="card-text">
+				<span class="text-light">Unit price: </span>£{{ item.unit_price }}
+			</p>
+			<p class="card-text">
+				<span class="text-light">Quantity: </span>{{ item.quantity }}
+			</p>
+			<p class="card-text">
+				<span class="text-light">First line address: </span>
+                {{ shipping_address.address1 }}
+			</p>
+			<p class="card-text">
+				<span class="text-light">Second line address: </span>
+                {{ shipping_address.address2 }}
+			</p>
+			<p class="card-text">
+				<span class="text-light">City: </span>{{ shipping_address.city }}
+			</p>
+			<p class="card-text">
+				<span class="text-light">Order date: </span>{{ order.order_date }}
+			</p>
+			<p class="card-text">
+				<span class="text-light">Total amount paid: </span>
+                £{{ order.amount_paid }}
+			</p>
+			<a href="{% url 'store' %}" class="btn btn-primary">Back To Store</a>
+		</div>
+	</section>
+	{% endfor %}
 </main>
 {% endblock %}

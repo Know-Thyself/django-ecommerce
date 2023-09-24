@@ -1,16 +1,17 @@
 {% extends "base.html" %} 
 {% block content %}
-<main class="verification">
-	<section class="card custom-card">
-        <div class="card-header bg-danger">
-			<i class="fa fa-frown-o fa-2x text-white" aria-hidden="true"></i>
+<main>
+	<section class="card custom-card mt-5 border-0">
+        <div class="card-header bg-danger text-white">
+			<i class="fa fa-frown-o fa-2x" aria-hidden="true"></i>
 			&nbsp;&nbsp;
-            <i class="fa fa-exclamation-triangle fa-2x text-white"></i>
+            <i class="fa fa-exclamation-triangle fa-2x"></i>
             <br>
-            <h5 class="text-white"><strong>Payment Failed!</strong></h5>
+            <h5><strong>Payment Failed!</strong></h5>
         </div>
 		<div class="card-body">
-			<h5 class="card-title">Please edit your entries and try again.</h5>
+			<h6 class="card-title text-light">Something went wrong</h6>
+			<p class="card-text">Please edit your shipping address and try again.</p>
 			<a href="{% url 'process-payment' %}" class="btn btn-primary">Back To Checkout</a>
 		</div>
 	</section>

@@ -97,7 +97,7 @@ def checkout(request):
                         quantity=item['quantity'],
                         unit_price=item['price'],
                     )
-                products.append(item['product'])
+                    products.append(item['product'])
             send_mail(
                 subject='Payment Confirmed',
                 message=f"Hi {request.POST.get('full_name')},\nThank you for placing your order!\n\nHere\'s what you\'ve ordered:\n{str(products)}\nTotal amount paid: ${total_price}",

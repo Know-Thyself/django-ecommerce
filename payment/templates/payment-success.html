@@ -1,16 +1,16 @@
 {% extends "base.html" %} 
 {% block content %}
-<main class="verification">
-	<section class="card custom-card mt-5">
-        <div class="card-header">
-            <i class="fa fa-paypal fa-3x text-info" aria-hidden="true"></i>
+<main>
+	<section class="card custom-card mt-5 border-0">
+        <div class="card-header bg-success text-white">
+            <i class="fa fa-paypal fa-3x" aria-hidden="true"></i>
             &nbsp;
-            <i class="fa fa-check fa-3x text-info"></i>
+            <i class="fa fa-check fa-3x"></i>
             <br>
             <h5><strong>Payment Success!</strong></h5>
         </div>
 		<div class="card-body">
-			<h5 class="card-title">Thank you for shopping with us, {{ customer }}!</h5>
+			<h5 class="card-title text-light">Thank you for shopping with us, {{ customer }}!</h5>
             <p class="card-text">Your delivery will be dispatched shortly.<br>We've sent you a payment confirmation email.<br>Please do feel free to explore more of our Ethical Products you may like.</p>
             <div class="buttons-wrapper">
                 <a href="{% url 'store' %}" class="btn btn-primary">Back To Store</a>

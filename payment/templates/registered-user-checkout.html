@@ -1,59 +1,64 @@
 {% extends "base.html" %} {% block content %}
 <main class="pt-5">
 	<div class="container">
-		<h1 class="h5">{{customer_name}}, Review your items and make a payment</h1>
-		<hr />
-		{% for item in cart %} {% with product=item.product %}
-		<br />
-		<div id="{{product.id}}" class="row mb-4 border product-item">
-			<div class="col-md-3 col-lg-2 order-md-first h-100">
-				<img
-					class="img-fluid mx-auto"
-					width="150px"
-					alt="{{ product.title }}"
-					src="{{ product.image.url}} "
-				/>
-			</div>
-			<div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
-				<a
-					href="{{ product.get_absolute_url}}"
-					class="text-info text-decoration-none"
-				>
-					<p class="h6 pt-2">{{ product.title }}</p>
-				</a>
-				<div class="border">
-					<div class="col border-bottom">
-						<div class="row p-3">
-							<div class="col-6">Unit price : --></div>
-							<div class="col-6 text-end">
-								<span class="h6 fw-bold"> {{ product.price }} </span>
+		{% if cart.get_total_price %}
+			<h1 class="h5 text-primary mb-2">{{customer_name}}, Review your items and make a payment</h1>
+			{% for item in cart %} {% with product=item.product %}
+				<div id="{{product.id}}" class="row product-item bg-success p-0 m-auto">
+					<div class="col-md-3 col-lg-2 order-md-first p-0 m-0 align-self-center">
+						<img
+							class="img-fluid mx-auto"
+							alt="{{ product.title }}"
+							src="{{ product.image.url}} "
+						/>
+					</div>
+					<div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10 bg-body p-2 text-light">
+						<a
+							href="{{ product.get_absolute_url}}"
+							class="text-info text-decoration-none"
+						>
+							<p class="h6 pt-2">{{ product.title }}</p>
+						</a>
+						<div class="border">
+							<div class="col border-bottom">
+								<div class="row p-3">
+									<div class="col-6">Unit price : --></div>
+									<div class="col-6 text-end">
+										<span> {{ product.price }} </span>
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<div class="row p-3">
+									<div class="col-6">Sub total : --></div>
+									<div class="col-6 text-end">
+										<span id="sub-total-{{ product.id }}">
+											{{ item.total }}
+										</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col border-bottom">
-						<div class="row p-3">
-							<div class="col-6">Sub total : --></div>
-							<div class="col-6 text-end">
-								<span id="sub-total-{{ product.id }}" class="h6 fw-bold">
-									{{ item.total }}
-								</span>
-							</div>
-						</div>
+				</div>
+			{% endwith %} {% endfor %}
+			<div class="col-12 text-end">
+				<div class="fw-bold">
+					<div id="total" class="my-2 me-4 text-primary">
+						Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}
 					</div>
 				</div>
 			</div>
-		</div>
-		{% endwith %} {% endfor %}
-		<div class="col-12 text-end">
-			<div class="h6 fw-bold pb-5">
-				<div id="total" class="pb-4">
-					Total price: &nbsp;&nbsp; £{{ cart.get_total_price }}
-				</div>
-				<div class="paypal-buttons">
-					<div class="py-3" id="paypal-button-container"></div>
-				</div>
+			<div class="paypal-buttons">
+				<div id="paypal-button-container"></div>
 			</div>
-		</div>
+		{% else %}
+			<div class="container">
+				<p class="text-primary">Your shopping cart is empty. Please go to store and add items to your shopping cart.</p>
+				<a href="{% url 'store' %}" class="btn btn-primary">Go To Store</a>
+				<a href="{% url 'dashboard' %}" class="btn btn-primary">Back To Dashboard</a>
+			</div>
+		{% endif %}
 	</div>
 </main>
 {% if SANDBOX_CLIENT_ID %}
